@@ -13,6 +13,8 @@
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.8.3",
     "dotenv": "^16.0.3",
+    "plotly": "^1.0.6",
+    "plotly.js-dist": "^2.16.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vue3-material": "^1.0.8"

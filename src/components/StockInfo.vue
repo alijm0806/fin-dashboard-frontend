@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios'
-
+import Plotly from 'plotly.js-dist'
 
 export default {
   name: 'StockInfo',
@@ -8,8 +8,8 @@ export default {
     msg: String
   },
   data: function () {
-    setTimeout(this.getInfo, 1000);
-    setTimeout(this.getCompanyValue, 1000);
+    // setTimeout(this.getInfo, 1000);
+    // setTimeout(this.getCompanyValue, 1000);
 
     return {
       api_key: '6581d61260bde88fb3f91cd2af06dfcb',
@@ -29,8 +29,15 @@ export default {
       grossProfitMargin: "",
       priceToSales: "",
       priceEarnings: "",
-      image: ""
-
+      image: "",
+      open: [],
+      close: [],
+      high: [],
+      low: [],
+      x: [],
+      openTemp: "",
+      xi: "",
+      trace1: {}
     }
   },
   methods: {
@@ -38,8 +45,69 @@ export default {
       console.log(this.api_key);
       this.stock = this.stock
       this.getInfo(stock);
-      this.getCompanyValue(stock)
+      this.getCompanyValue(stock);
+      this.getChart(stock)
     },
+
+    getChart(stock) {
+      axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.stock}?timeseries=400&apikey=${this.api_key}`).then(res => {
+        this.open = []
+        this.close = []
+        this.high = []
+        this.low = []
+        this.x = []
+        this.xi = ""
+        this.openTemp = res.data.historical
+        for (this.xi of this.openTemp) {
+          this.open.push(this.xi.open)
+          this.close.push(this.xi.close)
+          this.high.push(this.xi.high)
+          this.low.push(this.xi.low)
+          this.x.push(this.xi.date)
+        }
+        console.log(this.x)
+      }).catch(err => console.log(err))
+
+      var trace1 = {
+        x: this.x,
+        close: this.close,
+        decreasing: { line: { color: '#FF000' } },
+        high: this.high,
+        increasing: { line: { color: 'green' } },
+        line: { color: 'rgba(31,119,180,1)' },
+        low: this.low,
+        open: this.open,
+        type: 'candlestick',
+        xaxis: 'x',
+        yaxis: 'y'
+      };
+
+      var data = [trace1];
+
+      var layout = {
+        dragmode: 'zoom',
+        margin: {
+          r: 10,
+          t: 20,
+          b: 20,
+          l: 30
+        },
+        showlegend: false,
+        xaxis: {
+          autorange: true,
+          rangeslider: { range: [this.x[0], this.x[1000]] },
+          title: 'Date',
+          type: 'date'
+        },
+        yaxis: {
+          autorange: true,
+          range: [Math.min(...this.close) - 10, Math.max(...this.close) + 20],
+          type: 'linear'
+        },
+      };
+      Plotly.newPlot('candleStick', data, layout);
+    },
+
     getCompanyValue(stock) {
       axios.get(`https://financialmodelingprep.com/api/v3/financial-ratios/${this.stock}?apikey=${this.api_key}`).then(res => {
         console.log(this.res)
@@ -49,7 +117,7 @@ export default {
         this.priceBookValueRatio = parseFloat(res.data.ratios[0].investmentValuationRatios.priceBookValueRatio).toFixed(2)
         this.priceToSales = parseFloat(res.data.ratios[0].investmentValuationRatios.priceSalesRatio).toFixed(2)
         this.priceEarningsRatio = parseFloat(res.data.ratios[0].investmentValuationRatios.priceEarningsRatio).toFixed(2)
-      })
+      }).catch(err => console.log(err))
     },
     getInfo(stock) {
       // const api_key = process.env.API_KEY;
@@ -65,7 +133,7 @@ export default {
         this.marketCap = this.infoCompany.marketCap
         this.image = this.infoCompany.image
         this.description = this.infoCompany.description
-      })
+      }).catch(err => console.log(err))
       console.log(this.stock);
       console.log(this.infoCompany)
       // console.log(this.beta)
@@ -178,7 +246,7 @@ export default {
           </div>
         </div>
         <div class="col-md-8">
-
+          <div id="candleStick"></div>
         </div>
 
       </div>
