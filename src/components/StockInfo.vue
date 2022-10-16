@@ -9,6 +9,7 @@ export default {
   },
   data: function () {
     setTimeout(this.getInfo, 2000);
+    setTimeout(this.getCompanyValue, 2000);
 
     return {
       api_key: '6581d61260bde88fb3f91cd2af06dfcb',
@@ -19,6 +20,14 @@ export default {
       ceo: "",
       sector: "",
       companyName: "",
+      price: "",
+      marketCap: "",
+      ROA: "",
+      ROE: "",
+      priceBookValueRatio: "",
+      grossProfitMargin: "",
+      priceToSales: "",
+      priceEarnings: ""
 
     }
   },
@@ -27,9 +36,19 @@ export default {
       console.log(this.api_key);
       this.stock = this.stock
       this.getInfo(stock);
-
+      this.getCompanyValue(stock)
     },
-
+    getCompanyValue(stock) {
+      axios.get(`https://financialmodelingprep.com/api/v3/financial-ratios/${this.stock}?apikey=${this.api_key}`).then(res => {
+        console.log(this.res)
+        this.ROA = parseFloat(res.data.ratios[0].profitabilityIndicatorRatios.returnOnAssets * 100).toFixed(2)
+        this.ROE = parseFloat(res.data.ratios[0].profitabilityIndicatorRatios.returnOnEquity * 100).toFixed(2)
+        this.grossProfitMargin = parseFloat(res.data.ratios[0].profitabilityIndicatorRatios.grossProfitMargin * 100).toFixed(2)
+        this.priceBookValueRatio = parseFloat(res.data.ratios[0].investmentValuationRatios.priceBookValueRatio).toFixed(2)
+        this.priceToSales = parseFloat(res.data.ratios[0].investmentValuationRatios.priceSalesRatio).toFixed(2)
+        this.priceEarningsRatio = parseFloat(res.data.ratios[0].investmentValuationRatios.priceEarningsRatio).toFixed(2)
+      })
+    },
     getInfo(stock) {
       // const api_key = process.env.API_KEY;
       // console.log(api_key);
@@ -40,6 +59,8 @@ export default {
         this.ceo = this.infoCompany.ceo
         this.sector = this.infoCompany.sector
         this.companyName = this.infoCompany.companyName
+        this.price = this.infoCompany.price
+        this.marketCap = this.infoCompany.marketCap
       })
       console.log(this.stock);
       console.log(this.infoCompany)
@@ -63,7 +84,7 @@ export default {
       </form>
 
       <!-- Basic Information -->
-      <div class="row">
+      <div class="row ">
         <div class="col-md-3">
           <div class="card card-stats card-background">
             <div class="card-header card-header-icon">
@@ -109,9 +130,38 @@ export default {
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="md-list mt-5">
+            <b-list-group horizontal class="col-md-3 mr-4">
+              <i class="material-icons">query_stats</i>
+              <span class="left">Price {{this.price}}</span>
+              <span class="right">P/B {{this.priceBookValueRatio}}</span>
+            </b-list-group>
+
+            <b-list-group horizontal class="col-md-3 mr-4">
+              <i class="material-icons">attach_money</i>
+              <span class="left">ROA {{this.ROA}}%</span>
+              <span class="right">P/S {{this.priceToSales}}</span>
+            </b-list-group>
+
+            <b-list-group horizontal class="col-md-3 mr-4">
+              <i class="material-icons">attach_money</i>
+              <span class="left">ROE {{this.ROE}}%</span>
+              <span class="right">P/E {{this.priceEarningsRatio}}</span>
+            </b-list-group>
+
+            <b-list-group horizontal class="col-md-3 mr-4">
+              <i class="material-icons">equalizer</i>
+              <span class="">Gross Profit Mar {{this.grossProfitMargin}}%</span>
+            </b-list-group>
+          </div>
+        </div>
+      </div>
 
     </div>
-    <h1>{{this.infoCompany}}</h1>
+    <!-- <h1>{{this.infoCompany}}</h1> -->
   </div>
 
 
@@ -141,5 +191,22 @@ a {
 
 .card-background {
   background-color: #42b983;
+}
+
+.md-list {
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  border: 1px solid rgba(#000, .12);
+}
+
+.left {
+  margin-right: 12px;
+  margin-top: 0px;
+}
+
+.right {
+  margin-right: 12px;
+  margin-top: 0px;
 }
 </style>
