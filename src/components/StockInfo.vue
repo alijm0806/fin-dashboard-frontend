@@ -241,12 +241,18 @@ export default {
             </div>
             <div class="card-body">
               <h4>{{this.companyName}}</h4>
-              <p>{{this.description}}</p>
+              <p class="scrollable">{{this.description}}</p>
             </div>
           </div>
         </div>
         <div class="col-md-8">
-          <div id="candleStick"></div>
+          <div class="card mb-3">
+            <div class="card-body p-3">
+              <div>
+                <div id="candleStick" height="300px"></div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -298,5 +304,12 @@ a {
 .right {
   margin-right: 12px;
   margin-top: 0px;
+}
+
+
+.scrollable {
+  overflow-y: auto;
+  max-height: 300px;
+
 }
 </style>
