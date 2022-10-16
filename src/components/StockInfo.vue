@@ -8,8 +8,8 @@ export default {
     msg: String
   },
   data: function () {
-    setTimeout(this.getInfo, 2000);
-    setTimeout(this.getCompanyValue, 2000);
+    setTimeout(this.getInfo, 1000);
+    setTimeout(this.getCompanyValue, 1000);
 
     return {
       api_key: '6581d61260bde88fb3f91cd2af06dfcb',
@@ -20,6 +20,7 @@ export default {
       ceo: "",
       sector: "",
       companyName: "",
+      description: "",
       price: "",
       marketCap: "",
       ROA: "",
@@ -27,7 +28,8 @@ export default {
       priceBookValueRatio: "",
       grossProfitMargin: "",
       priceToSales: "",
-      priceEarnings: ""
+      priceEarnings: "",
+      image: ""
 
     }
   },
@@ -61,6 +63,8 @@ export default {
         this.companyName = this.infoCompany.companyName
         this.price = this.infoCompany.price
         this.marketCap = this.infoCompany.marketCap
+        this.image = this.infoCompany.image
+        this.description = this.infoCompany.description
       })
       console.log(this.stock);
       console.log(this.infoCompany)
@@ -160,6 +164,24 @@ export default {
         </div>
       </div>
 
+
+      <div class="row mt-5">
+        <div class="col-md-4">
+          <div class="card card-profile border-0">
+            <div class="card-avatar">
+              <img class="img" :src="image" alt="">
+            </div>
+            <div class="card-body">
+              <h4>{{this.companyName}}</h4>
+              <p>{{this.description}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+
+        </div>
+
+      </div>
     </div>
     <!-- <h1>{{this.infoCompany}}</h1> -->
   </div>
