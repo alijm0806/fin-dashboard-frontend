@@ -37,7 +37,10 @@ export default {
       x: [],
       openTemp: "",
       xi: "",
-      trace1: {}
+      trace1: {},
+      statement: [],
+      cash: ""
+
     }
   },
   methods: {
@@ -46,10 +49,57 @@ export default {
       this.stock = this.stock
       this.getInfo(stock);
       this.getCompanyValue(stock);
-      this.getChart(stock)
+      this.getCandleStick(stock)
+      this.getChartPie(stock)
     },
 
-    getChart(stock) {
+    getChartPie(stock) {
+      axios.get(`https://financialmodelingprep.com/api/v3/financials/balance-sheet-statement/${this.stock}?limit=120&apikey=${this.api_key}`).then(res => {
+        this.cash = res.data.financials[0]['Cash and cash equivalents']
+        this.receivables = res.data.financials[0]['Receivables']
+        this.inventories = res.data.financials[0]['Inventories']
+        this.ppe = res.data.financials[0]['Property, Plant & Equipment Net']
+        this.goodwill = res.data.financials[0]['Goodwill and Intangible Assets']
+        this.LTInvestments = res.data.financials[0]['Long-term investments']
+        this.payables = res.data.financials[0]['Payables']
+        this.STDebt = res.data.financials[0]['Short-term debt']
+        this.defRevenue = res.data.financials[0]['Deferred revenue']
+        this.taxLiab = res.data.financials[0]['Tax Liabilities']
+
+      }).catch(err => console.log(err))
+
+      var data = [{
+        type: "pie",
+        values: [this.cash, this.receivables, this.inventories, this.ppe, this.goodwill, this.LTInvestments],
+        labels: ["cash", "receivables", "Inventories", "PPE", "Goodwill", "LT Inv"],
+        textinfo: "label+percent",
+        textposition: "outside",
+        title: "Assets",
+        automargin: true
+      }]
+
+      var dataLiab = [{
+        type: "pie",
+        values: [this.payables, this.STDebt, this.LTDebt, this.defRevenue, this.taxLiab],
+        labels: ["Payables", "STDebt", "LTDebt", "defRevenue", "taxLiab"],
+        textinfo: "label+percent",
+        textposition: "outside",
+        title: "Liabilities",
+        automargin: true
+      }]
+
+      var layout = {
+        height: 400,
+        width: 400,
+        margin: { "t": 20, "b": 20, "l": 20, "r": 20 },
+        showlegend: false
+      }
+
+      Plotly.newPlot('Assets', data, layout);
+      Plotly.newPlot('Liabilities', dataLiab, layout);
+    },
+
+    getCandleStick(stock) {
       axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.stock}?timeseries=400&apikey=${this.api_key}`).then(res => {
         this.open = []
         this.close = []
@@ -136,7 +186,6 @@ export default {
       }).catch(err => console.log(err))
       console.log(this.stock);
       console.log(this.infoCompany)
-      // console.log(this.beta)
     }
   }
 }
@@ -255,6 +304,15 @@ export default {
           </div>
         </div>
 
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div id="Assets"></div>
+        </div>
+        <div class="col-md-4">
+          <div id="Liabilities"></div>
+        </div>
       </div>
     </div>
     <!-- <h1>{{this.infoCompany}}</h1> -->
