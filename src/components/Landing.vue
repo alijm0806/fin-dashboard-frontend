@@ -181,6 +181,11 @@ export default {
 </script>
 <template>
   <div class="container">
+    <div class="navigation">
+      <Sidebar />
+
+
+    </div>
     <div class="Table">
       <table class="table table-striped">
         <thead>

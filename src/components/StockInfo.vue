@@ -7,6 +7,7 @@ export default {
   props: {
     msg: String
   },
+
   data: function () {
     // setTimeout(this.getInfo, 1000);
     // setTimeout(this.getCompanyValue, 1000);
