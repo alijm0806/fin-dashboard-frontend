@@ -348,6 +348,12 @@ a {
   background-color: #42b983;
 }
 
+.card-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .md-list {
   max-width: 100%;
   display: inline-block;

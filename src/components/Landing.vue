@@ -300,9 +300,9 @@ export default {
 
       <div class="col-md-4 bg-light">
         <div class="plans-page d-grid m-20 gap-20">
-          <div class="plan blue bg-white p-20">
-            <div class="top bg-primary txt-c p-20">
-              <h2 class="m-0 text-white">FREE</h2>
+          <div class="plan silver bg-white p-20">
+            <div class="top bg-secondary txt-c p-20">
+              <h2 class="m-0 text-white">SILVER</h2>
               <div class="price text-white"><span>$</span>0.00</div>
             </div>
             <ul style="list-style: none;">
@@ -348,7 +348,7 @@ export default {
         <div class="plans-page d-grid m-20 gap-20">
           <div class="plan orange bg-white p-20">
             <div class="top bg-warning txt-c p-20">
-              <h2 class="m-0 text-white">FREE</h2>
+              <h2 class="m-0 text-white">GOLD</h2>
               <div class="price text-white"><span>$</span>0.00</div>
             </div>
             <ul style="list-style: none;">
@@ -410,8 +410,8 @@ export default {
   outline-color: green;
 }
 
-.plans-page .plan.blue .top {
-  outline-color: blue;
+.plans-page .plan.silver .top {
+  outline-color: rgb(114, 111, 111);
 }
 
 .plans-page .plan.orange .top {
