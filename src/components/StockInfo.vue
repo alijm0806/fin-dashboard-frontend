@@ -7,10 +7,13 @@ export default {
 
   data: function () {
     setTimeout(this.getCandleStick, 1000);
+    setTimeout(this.getCompanyValue, 1000);
+    setTimeout(this.getChartPie, 1000);
+    setTimeout(this.getInfo, 1000);
 
     return {
       api_key: '6581d61260bde88fb3f91cd2af06dfcb',
-      stock: '',
+      stock: 'AAPL',
       beta: "",
       infoCompany: "",
       ceo: "",

@@ -15,7 +15,7 @@ export default {
     setTimeout(this.getMicrosoftInfos, 1000);
 
     return {
-      api_key: '817dc7085526a733a464c8e6c662af6b',
+      api_key: '6581d61260bde88fb3f91cd2af06dfcb',
       AAPLcompanyInfo: "",
       AAPLcompanyName: "",
       AAPLimage: "",

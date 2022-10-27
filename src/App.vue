@@ -3,9 +3,10 @@
     <aside>
       <div :class="`${active ? 'aside active' : 'aside'}`">
         <ul>
+
           <li class="list active">
 
-            <router-link to="/home" class="button">
+            <router-link to="/" class="button">
               <b></b>
               <b></b>
               <a href="#">
@@ -16,21 +17,21 @@
               </a>
             </router-link>
           </li>
-          <li class="list">
 
-            <router-link to="/" class="button">
+          <li class="list">
+            <router-link to="/home" class="button">
               <b></b>
               <b></b>
               <a href="#">
                 <span class="icon">
-                  <ion-icon name="person-outline"></ion-icon>
+                  <ion-icon name="stats-chart-outline"></ion-icon>
                 </span>
-                <span class="title">Profile</span>
+                <span class="title">Stocks</span>
               </a>
             </router-link>
           </li>
-          <li class="list">
 
+          <li class="list">
             <router-link to="/login" class="button">
               <b></b>
               <b></b>
@@ -38,12 +39,12 @@
                 <span class="icon">
                   <ion-icon name="settings-outline"></ion-icon>
                 </span>
-                <span class="title">login</span>
+                <span class="title">Login</span>
               </a>
             </router-link>
           </li>
-          <li class="list">
 
+          <li class="list">
             <router-link to="/currencies" class="button">
               <b></b>
               <b></b>
@@ -54,7 +55,9 @@
                 <span class="title">Currencies</span>
               </a>
             </router-link>
+          </li>
 
+          <li class="list">
             <router-link to="/cryptocurrency" class="button">
               <b></b>
               <b></b>
@@ -65,7 +68,9 @@
                 <span class="title">Cryptocurrency</span>
               </a>
             </router-link>
+          </li>
 
+          <li class="list">
             <router-link to="/logout" class="button">
               <b></b>
               <b></b>
@@ -102,6 +107,11 @@ export default {
   data: function () {
     return {
       active: true
+    }
+  },
+  watch: {
+    $route: function () {
+      this.isLoggedIn = !!localStorage.jwt
     }
   },
 }
