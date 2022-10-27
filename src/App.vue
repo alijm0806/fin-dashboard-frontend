@@ -54,6 +54,17 @@
                 <span class="title">Help</span>
               </a>
             </router-link>
+
+            <router-link to="/logout" class="button">
+              <b></b>
+              <b></b>
+              <a href="#">
+                <span class="icon">
+                  <ion-icon name="log-out-outline"></ion-icon>
+                </span>
+                <span class="title">Log out</span>
+              </a>
+            </router-link>
           </li>
         </ul>
       </div>

@@ -4,23 +4,22 @@ import Plotly from 'plotly.js-dist'
 
 export default {
   name: 'StockInfo',
-  props: {
-    msg: String
-  },
 
   data: function () {
-    // setTimeout(this.getInfo, 1000);
-    // setTimeout(this.getCompanyValue, 1000);
+    setTimeout(this.getInfo, 2000);
+    setTimeout(this.getCompanyValue, 2000);
+    // setTimeout(this.getChartPie, 4000);
+    // setTimeout(this.getCandleStick, 4000);
+    setTimeout(this.submit, 2000);
 
     return {
-      api_key: '6581d61260bde88fb3f91cd2af06dfcb',
+      api_key: '817dc7085526a733a464c8e6c662af6b',
       stock: '',
-      theStock: "",
       beta: "",
       infoCompany: "",
       ceo: "",
       sector: "",
-      companyName: "",
+      companysName: "",
       description: "",
       price: "",
       marketCap: "",
@@ -41,21 +40,21 @@ export default {
       trace1: {},
       statement: [],
       cash: ""
-
     }
+
   },
+
   methods: {
     submit(stock) {
-      console.log(this.api_key);
-      this.stock = this.stock
+      this.stock = this.stock;
       this.getInfo(stock);
       this.getCompanyValue(stock);
-      this.getCandleStick(stock)
-      this.getChartPie(stock)
+      this.getCandleStick(stock);
+      this.getChartPie(stock);
     },
 
-    getChartPie(stock) {
-      axios.get(`https://financialmodelingprep.com/api/v3/financials/balance-sheet-statement/${this.stock}?limit=120&apikey=${this.api_key}`).then(res => {
+    async getChartPie(stock) {
+      await axios.get(`https://financialmodelingprep.com/api/v3/financials/balance-sheet-statement/${this.stock}?limit=120&apikey=${this.api_key}`).then(res => {
         this.cash = res.data.financials[0]['Cash and cash equivalents']
         this.receivables = res.data.financials[0]['Receivables']
         this.inventories = res.data.financials[0]['Inventories']
@@ -97,7 +96,7 @@ export default {
       }
 
       Plotly.newPlot('Assets', data, layout);
-      Plotly.newPlot('Liabilities', dataLiab, layout);
+      Plotly.newPlot('Liabilities', dataLiab, layout)
     },
 
     getCandleStick(stock) {
@@ -194,7 +193,7 @@ export default {
 <template>
   <div calss="hello">
     <div class="container">
-      <form class="navbar-form m-2" v-on:submit.prevent="submit()">
+      <form class="navbar-form m-2" v-on:click.prevent="submit()">
         <div class="input-group nno-border">
           <input type="text" class="form-control" placeholder="Search..." v-model="stock">
           <button type="submit" value="Submit" class="btn btn-white btn-round btn-just-icon">
@@ -214,7 +213,7 @@ export default {
                 <i class="material-icons">content_copy</i>
               </div>
               <p class="card-category">Beta</p>
-              <h4 class="card-title">{{this.beta}}</h4>
+              <h4 class="card-title">{{ this.beta }}</h4>
             </div>
           </div>
         </div>
@@ -225,7 +224,7 @@ export default {
                 <i class="material-icons">store</i>
               </div>
               <p class="card-category">CEO</p>
-              <h4 class="card-title">{{this.ceo}}</h4>
+              <h4 class="card-title">{{ this.ceo }}</h4>
             </div>
           </div>
         </div>
@@ -236,7 +235,7 @@ export default {
                 <i class="material-icons">info</i>
               </div>
               <p class="card-category">Comp. NAme</p>
-              <h4 class="card-title">{{this.companyName}}</h4>
+              <h4 class="card-title">{{ this.companyName }}</h4>
             </div>
           </div>
         </div>
@@ -247,7 +246,7 @@ export default {
                 <i class="material-icons">storage</i>
               </div>
               <p class="card-category">Sector</p>
-              <h4 class="card-title">{{this.sector}}</h4>
+              <h4 class="card-title">{{ this.sector }}</h4>
             </div>
           </div>
         </div>
@@ -258,25 +257,25 @@ export default {
           <div class="md-list mt-5">
             <b-list-group horizontal class="col-md-3 mr-4">
               <i class="material-icons">query_stats</i>
-              <span class="left">Price {{this.price}}</span>
-              <span class="right">P/B {{this.priceBookValueRatio}}</span>
+              <span class="left">Price {{ this.price }}</span>
+              <span class="right">P/B {{ this.priceBookValueRatio }}</span>
             </b-list-group>
 
             <b-list-group horizontal class="col-md-3 mr-4">
               <i class="material-icons">attach_money</i>
-              <span class="left">ROA {{this.ROA}}%</span>
-              <span class="right">P/S {{this.priceToSales}}</span>
+              <span class="left">ROA {{ this.ROA }}%</span>
+              <span class="right">P/S {{ this.priceToSales }}</span>
             </b-list-group>
 
             <b-list-group horizontal class="col-md-3 mr-4">
               <i class="material-icons">attach_money</i>
-              <span class="left">ROE {{this.ROE}}%</span>
-              <span class="right">P/E {{this.priceEarningsRatio}}</span>
+              <span class="left">ROE {{ this.ROE }}%</span>
+              <span class="right">P/E {{ this.priceEarningsRatio }}</span>
             </b-list-group>
 
             <b-list-group horizontal class="col-md-3 mr-4">
               <i class="material-icons">equalizer</i>
-              <span class="">Gross Profit Mar {{this.grossProfitMargin}}%</span>
+              <span class="">Gross Profit Mar {{ this.grossProfitMargin }}%</span>
             </b-list-group>
           </div>
         </div>
@@ -290,8 +289,8 @@ export default {
               <img class="img" :src="image" alt="">
             </div>
             <div class="card-body">
-              <h4>{{this.companyName}}</h4>
-              <p class="scrollable">{{this.description}}</p>
+              <h4 style="color:red">{{ this.companyName }}</h4>
+              <p class="scrollable">{{ this.description }}</p>
             </div>
           </div>
         </div>
@@ -307,6 +306,18 @@ export default {
 
       </div>
 
+      <form class="navbar-form m-2 hidden" v-on:submit.prevent="submit()">
+        <div>
+          <input hidden type="text" class="form-control" placeholder="Search..." v-model="stock">
+
+          <button type="submit" value="Submit" class="btn btn-white btn-round btn-just-icon">
+            <h4 style="color:red">{{ this.companyName }}</h4>
+            <h4 style="color:red">Balance Scheet</h4>
+            <ion-icon name="grid-outline"></ion-icon>
+          </button>
+        </div>
+      </form>
+
       <div class="row">
         <div class="col-md-4">
           <div id="Assets"></div>
@@ -316,7 +327,6 @@ export default {
         </div>
       </div>
     </div>
-    <!-- <h1>{{this.infoCompany}}</h1> -->
   </div>
 
 
@@ -352,6 +362,8 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  max-height: 120px;
+  margin-top: 5px;
 }
 
 .md-list {
@@ -376,5 +388,19 @@ a {
   overflow-y: auto;
   max-height: 300px;
 
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4d5bf9;
+  border-radius: 7px;
 }
 </style>
