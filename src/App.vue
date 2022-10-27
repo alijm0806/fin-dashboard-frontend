@@ -44,14 +44,25 @@
           </li>
           <li class="list">
 
-            <router-link to="/help" class="button">
+            <router-link to="/currencies" class="button">
               <b></b>
               <b></b>
               <a href="#">
                 <span class="icon">
-                  <ion-icon name="help-circle-outline"></ion-icon>
+                  <ion-icon name="logo-usd"></ion-icon>
                 </span>
-                <span class="title">Help</span>
+                <span class="title">Currencies</span>
+              </a>
+            </router-link>
+
+            <router-link to="/cryptocurrency" class="button">
+              <b></b>
+              <b></b>
+              <a href="#">
+                <span class="icon">
+                  <ion-icon name="logo-bitcoin"></ion-icon>
+                </span>
+                <span class="title">Cryptocurrency</span>
               </a>
             </router-link>
 
@@ -270,6 +281,7 @@ nav a.router-link-exact-active {
   padding-left: 10px;
   height: 60px;
   line-height: 60px;
+  letter-spacing: 3PX;
 }
 
 

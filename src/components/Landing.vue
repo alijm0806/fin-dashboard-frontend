@@ -187,7 +187,7 @@ export default {
     </div>
 
     <div class="Table">
-      <table class="table table-striped">
+      <table class="table">
         <thead>
           <tr>
             <th scope="col"></th>
@@ -203,59 +203,59 @@ export default {
             <th scope="row"><img class="logo" :src="MSFTimage" alt=""></th>
             <td>{{ this.MSFTsymbol }}</td>
             <td>{{ this.MSFTcompanyName }}</td>
-            <td :class="`${this.MSFTprice > 0 ? 'positive' : 'negative'}`">{{ parseFloat(this.MSFTprice).toFixed(2) }}
+            <td>{{ parseFloat(this.MSFTprice).toFixed(2) }}
             </td>
             <td :class="`${this.MSFTchangeValue > 0 ? 'positive' : 'negative'}`">{{
                 parseFloat(this.MSFTchangeValue).toFixed(2)
             }}</td>
             <td :class="`${this.MSFTchangePercentage > 0 ? 'positive' : 'negative'}`">{{
                 parseFloat(this.MSFTchangePercentage).toFixed(2)
-            }}</td>
+            }} %</td>
           </tr>
           <tr>
             <th scope="row"><img class="logo" :src="NFLXimage" alt=""></th>
             <td>{{ this.NFLXsymbol }}</td>
             <td>{{ this.NFLXcompanyName }}</td>
-            <td :class="`${this.NFLXprice > 0 ? 'positive' : 'negative'}`">{{ parseFloat(this.NFLXprice).toFixed(2) }}
+            <td>{{ parseFloat(this.NFLXprice).toFixed(2) }}
             </td>
             <td :class="`${this.NFLXchangeValue > 0 ? 'positive' : 'negative'}`">{{
                 parseFloat(this.NFLXchangeValue).toFixed(2)
             }}</td>
             <td :class="`${this.NFLXchangePercentage > 0 ? 'positive' : 'negative'}`">{{
                 parseFloat(this.NFLXchangePercentage).toFixed(2)
-            }}</td>
+            }} %</td>
           </tr>
           <tr>
             <th scope="row"><img class="logo" :src="TSLAimage" alt=""></th>
             <td>{{ this.TSLAsymbol }}</td>
             <td>{{ this.TSLAcompanyName }}</td>
-            <td :class="`${this.TSLAprice > 0 ? 'positive' : 'negative'}`">{{ parseFloat(this.TSLAprice).toFixed(2) }}
+            <td>{{ parseFloat(this.TSLAprice).toFixed(2) }}
             </td>
             <td :class="`${this.TSLAchangeValue > 0 ? 'positive' : 'negative'}`">{{
                 parseFloat(this.TSLAchangeValue).toFixed(2)
             }}</td>
             <td :class="`${this.TSLAchangePercentage > 0 ? 'positive' : 'negative'}`">{{
                 parseFloat(this.TSLAchangePercentage).toFixed(2)
-            }}</td>
+            }} %</td>
           </tr>
           <tr>
             <th scope="row"><img class="logo" :src="GOOGimage" alt=""></th>
             <td>{{ this.GOOGsymbol }}</td>
             <td>{{ this.GOOGcompanyName }}</td>
-            <td :class="`${this.GOOGprice > 0 ? 'positive' : 'negative'}`">{{ parseFloat(this.GOOGprice).toFixed(2) }}
+            <td>{{ parseFloat(this.GOOGprice).toFixed(2) }}
             </td>
             <td :class="`${this.GOOGchangeValue > 0 ? 'positive' : 'negative'}`">{{
                 parseFloat(this.GOOGchangeValue).toFixed(2)
             }}</td>
             <td :class="`${this.GOOGchangePercentage > 0 ? 'positive' : 'negative'}`">{{
                 parseFloat(this.GOOGchangePercentage).toFixed(2)
-            }}</td>
+            }} %</td>
           </tr>
           <tr>
             <th scope="row"><img class="logo" :src="METAimage" alt=""></th>
             <td>{{ this.METAsymbol }}</td>
             <td>{{ this.METAcompanyName }}</td>
-            <td :class="`${this.METAprice > 0 ? 'positive' : 'negative'}`">{{
+            <td>{{
                 parseFloat(this.METAprice).toFixed(2)
             }}</td>
             <td :class="`${this.METAchangeValue > 0 ? 'positive' : 'negative'}`">{{
@@ -263,20 +263,20 @@ export default {
             }}</td>
             <td :class="`${this.METAchangePercentage > 0 ? 'positive' : 'negative'}`">{{
                 parseFloat(this.METAchangePercentage).toFixed(2)
-            }}</td>
+            }} %</td>
           </tr>
           <tr>
             <th scope="row"><img class="logo" :src="AMZNimage" alt=""></th>
             <td>{{ this.AMZNsymbol }}</td>
             <td>{{ this.AMZNcompanyName }}</td>
-            <td :class="`${this.AMZNprice > 0 ? 'positive' : 'negative'}`">{{ parseFloat(this.AMZNprice).toFixed(2) }}
+            <td>{{ parseFloat(this.AMZNprice).toFixed(2) }}
             </td>
             <td :class="`${this.AMZNchangeValue > 0 ? 'positive' : 'negative'}`">{{
                 parseFloat(this.AMZNchangeValue).toFixed(2)
             }}</td>
             <td :class="`${this.AMZNchangePercentage > 0 ? 'positive' : 'negative'}`">{{
                 parseFloat(this.AMZNchangePercentage).toFixed(2)
-            }}</td>
+            }} %</td>
           </tr>
         </tbody>
       </table>
@@ -322,8 +322,8 @@ export default {
                 <i class="fa-solid fa-circle-info help"></i>
               </li>
             </ul>
-            <button class="btn btn-success">
-              <a href="/login" class="btn btn-success bg-green c-white d-block w-fit">Join</a>
+            <button class="btn btn-primary">
+              <a href="/login" class="btn btn-primary bg-green c-white d-block w-fit">Join</a>
             </button>
           </div>
         </div>
@@ -368,8 +368,8 @@ export default {
                 <i class="fa-solid fa-circle-info help"></i>
               </li>
             </ul>
-            <button class="btn btn-success">
-              <a href="/login" class="btn btn-success bg-green c-white d-block w-fit">Join</a>
+            <button class="btn btn-primary">
+              <a href="/login" class="btn btn-primary bg-green c-white d-block w-fit">Join</a>
             </button>
           </div>
         </div>
@@ -414,8 +414,8 @@ export default {
                 <i class="fa-solid fa-circle-info help"></i>
               </li>
             </ul>
-            <button class="btn btn-success">
-              <a href="/login" class="btn btn-success bg-green c-white d-block w-fit">Join</a>
+            <button class="btn btn-primary">
+              <a href="/login" class="btn btn-primary bg-green c-white d-block w-fit">Join</a>
             </button>
           </div>
         </div>
@@ -432,9 +432,11 @@ export default {
 
 .table td {
   vertical-align: middle;
+  text-align: center;
 }
 
 .table th {
+  vertical-align: middle;
   text-align: center;
 }
 
@@ -514,5 +516,9 @@ export default {
   color: grey;
   margin-left: auto;
   cursor: pointer;
+}
+
+.btn-primary {
+  align-items: center;
 }
 </style>

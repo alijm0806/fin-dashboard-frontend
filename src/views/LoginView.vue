@@ -60,7 +60,7 @@ export default {
               <p>Don't have an account? <a href="/signup">Register here</a></p>
             </div>
           </form>
-          <h3>Login with social media</h3>
+          <h5>Login with social media</h5>
           <ul class="sci">
             <li><i class="fa-brands fa-facebook-f"></i></li>
             <li><i class="fa-brands fa-twitter"></i></li>
@@ -191,7 +191,7 @@ section .contentBx .formBx .inputBx p a {
   color: #ff4584;
 }
 
-section .contentBx .formBx h3 {
+section .contentBx .formBx h5 {
   color: #607d8b;
   margin: 80px 0 10px;
   font-weight: 500;
@@ -249,7 +249,7 @@ section .contentBx .formBx .sci li i {
     margin: 50px;
   }
 
-  section .contentBx .formBx h3 {
+  section .contentBx .formBx h5 {
     color: #607d8b;
     text-align: center;
     margin: 30px 0 10px;

@@ -6,14 +6,10 @@ export default {
   name: 'StockInfo',
 
   data: function () {
-    setTimeout(this.getInfo, 2000);
-    setTimeout(this.getCompanyValue, 2000);
-    // setTimeout(this.getChartPie, 4000);
-    // setTimeout(this.getCandleStick, 4000);
-    setTimeout(this.submit, 2000);
+    setTimeout(this.getCandleStick, 1000);
 
     return {
-      api_key: '817dc7085526a733a464c8e6c662af6b',
+      api_key: '6581d61260bde88fb3f91cd2af06dfcb',
       stock: '',
       beta: "",
       infoCompany: "",
@@ -99,8 +95,8 @@ export default {
       Plotly.newPlot('Liabilities', dataLiab, layout)
     },
 
-    getCandleStick(stock) {
-      axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.stock}?timeseries=400&apikey=${this.api_key}`).then(res => {
+    async getCandleStick(stock) {
+      await axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.stock}?timeseries=400&apikey=${this.api_key}`).then(res => {
         this.open = []
         this.close = []
         this.high = []
@@ -130,7 +126,7 @@ export default {
         type: 'candlestick',
         xaxis: 'x',
         yaxis: 'y'
-      };
+      }
 
       var data = [trace1];
 
@@ -154,12 +150,13 @@ export default {
           range: [Math.min(...this.close) - 10, Math.max(...this.close) + 20],
           type: 'linear'
         },
-      };
-      Plotly.newPlot('candleStick', data, layout);
+      }
+
+      Plotly.newPlot('candleStick', data, layout)
     },
 
-    getCompanyValue(stock) {
-      axios.get(`https://financialmodelingprep.com/api/v3/financial-ratios/${this.stock}?apikey=${this.api_key}`).then(res => {
+    async getCompanyValue(stock) {
+      await axios.get(`https://financialmodelingprep.com/api/v3/financial-ratios/${this.stock}?apikey=${this.api_key}`).then(res => {
         console.log(this.res)
         this.ROA = parseFloat(res.data.ratios[0].profitabilityIndicatorRatios.returnOnAssets * 100).toFixed(2)
         this.ROE = parseFloat(res.data.ratios[0].profitabilityIndicatorRatios.returnOnEquity * 100).toFixed(2)
@@ -169,10 +166,10 @@ export default {
         this.priceEarningsRatio = parseFloat(res.data.ratios[0].investmentValuationRatios.priceEarningsRatio).toFixed(2)
       }).catch(err => console.log(err))
     },
-    getInfo(stock) {
+    async getInfo(stock) {
       // const api_key = process.env.API_KEY;
       // console.log(api_key);
-      axios.get(`https://financialmodelingprep.com/api/v3/company/profile/${this.stock}?apikey=${this.api_key}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/${this.stock}?apikey=${this.api_key}`).then(res => {
         console.log(this.res)
         this.infoCompany = res.data.profile
         this.beta = parseFloat(this.infoCompany.beta).toFixed(2)
@@ -306,18 +303,6 @@ export default {
 
       </div>
 
-      <form class="navbar-form m-2 hidden" v-on:submit.prevent="submit()">
-        <div>
-          <input hidden type="text" class="form-control" placeholder="Search..." v-model="stock">
-
-          <button type="submit" value="Submit" class="btn btn-white btn-round btn-just-icon">
-            <h4 style="color:red">{{ this.companyName }}</h4>
-            <h4 style="color:red">Balance Scheet</h4>
-            <ion-icon name="grid-outline"></ion-icon>
-          </button>
-        </div>
-      </form>
-
       <div class="row">
         <div class="col-md-4">
           <div id="Assets"></div>
@@ -328,7 +313,6 @@ export default {
       </div>
     </div>
   </div>
-
 
 </template>
 
