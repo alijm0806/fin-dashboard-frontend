@@ -7,12 +7,6 @@ export default {
     msg: String
   },
   data: function () {
-    setTimeout(this.getAppleInfos, 1000);
-    setTimeout(this.getAmazonInfos, 1000);
-    setTimeout(this.getMetaInfos, 1000);
-    setTimeout(this.getNetflixInfos, 1000);
-    setTimeout(this.getGoogleInfos, 1000);
-    setTimeout(this.getMicrosoftInfos, 1000);
 
     return {
       api_key: '6581d61260bde88fb3f91cd2af06dfcb',
@@ -71,8 +65,8 @@ export default {
     this.getAppleInfos(), this.getGoogleInfos(), this.getMetaInfos(), this.getAmazonInfos(), this.getTeslaInfos(), this.getNetflixInfos(), this.getMicrosoftInfos()
   },
   methods: {
-    getAppleInfos() {
-      axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AAPL?apikey=${this.api_key}`).then(res => {
+    async getAppleInfos() {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AAPL?apikey=${this.api_key}`).then(res => {
         // console.log(this.res.data)
         this.AAPLcompanyInfo = res.data
         this.AAPLcompanyName = this.AAPLcompanyInfo.profile.companyName
@@ -86,8 +80,8 @@ export default {
       console.log(this.AAPLprice)
       // console.log(this.beta)
     },
-    getGoogleInfos() {
-      axios.get(`https://financialmodelingprep.com/api/v3/company/profile/GOOG?apikey=${this.api_key}`).then(res => {
+    async getGoogleInfos() {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/GOOG?apikey=${this.api_key}`).then(res => {
         // console.log(this.res.data)
         this.GOOGcompanyInfo = res.data
         this.GOOGcompanyName = this.GOOGcompanyInfo.profile.companyName
@@ -101,8 +95,8 @@ export default {
       console.log(this.GOOGprice)
       // console.log(this.beta)
     },
-    getMetaInfos() {
-      axios.get(`https://financialmodelingprep.com/api/v3/company/profile/META?apikey=${this.api_key}`).then(res => {
+    async getMetaInfos() {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/META?apikey=${this.api_key}`).then(res => {
         // console.log(this.res.data)
         this.METAcompanyInfo = res.data
         this.METAcompanyName = this.METAcompanyInfo.profile.companyName
@@ -116,8 +110,8 @@ export default {
       console.log(this.METAprice)
       // console.log(this.beta)
     },
-    getAmazonInfos() {
-      axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AMZN?apikey=${this.api_key}`).then(res => {
+    async getAmazonInfos() {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AMZN?apikey=${this.api_key}`).then(res => {
         // console.log(this.res.data)
         this.AMZNcompanyInfo = res.data
         this.AMZNcompanyName = this.AMZNcompanyInfo.profile.companyName
@@ -131,8 +125,8 @@ export default {
       console.log(this.METAprice)
       // console.log(this.beta)
     },
-    getTeslaInfos() {
-      axios.get(`https://financialmodelingprep.com/api/v3/company/profile/TSLA?apikey=${this.api_key}`).then(res => {
+    async getTeslaInfos() {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/TSLA?apikey=${this.api_key}`).then(res => {
         // console.log(this.res.data)
         this.TSLAcompanyInfo = res.data
         this.TSLAcompanyName = this.TSLAcompanyInfo.profile.companyName
@@ -146,8 +140,8 @@ export default {
       console.log(this.METAprice)
       // console.log(this.beta)
     },
-    getNetflixInfos() {
-      axios.get(`https://financialmodelingprep.com/api/v3/company/profile/NFLX?apikey=${this.api_key}`).then(res => {
+    async getNetflixInfos() {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/NFLX?apikey=${this.api_key}`).then(res => {
         // console.log(this.res.data)
         this.NFLXcompanyInfo = res.data
         this.NFLXcompanyName = this.NFLXcompanyInfo.profile.companyName
@@ -161,8 +155,8 @@ export default {
       console.log(this.METAprice)
       // console.log(this.beta)
     },
-    getMicrosoftInfos() {
-      axios.get(`https://financialmodelingprep.com/api/v3/company/profile/MSFT?apikey=${this.api_key}`).then(res => {
+    async getMicrosoftInfos() {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/MSFT?apikey=${this.api_key}`).then(res => {
         // console.log(this.res.data)
         this.MSFTcompanyInfo = res.data
         this.MSFTcompanyName = this.MSFTcompanyInfo.profile.companyName

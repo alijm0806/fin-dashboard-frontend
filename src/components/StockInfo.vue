@@ -64,12 +64,13 @@ export default {
         this.STDebt = res.data.financials[0]['Short-term debt']
         this.defRevenue = res.data.financials[0]['Deferred revenue']
         this.taxLiab = res.data.financials[0]['Tax Liabilities']
+        this.equity = res.data.financials[0]['Total shareholders equity']
 
       }).catch(err => console.log(err))
 
       var data = [{
         type: "pie",
-        values: [this.cash, this.receivables, this.inventories, this.ppe, this.goodwill, this.LTInvestments],
+        values: [this.cash, this.receivables, this.inventories, this.ppe, this.goodwill, this.LTInvestments, this.equity],
         labels: ["cash", "receivables", "Inventories", "PPE", "Goodwill", "LT Inv"],
         textinfo: "label+percent",
         textposition: "outside",
@@ -87,6 +88,15 @@ export default {
         automargin: true
       }]
 
+      var dataBalance = [{
+        type: "pie",
+        values: [this.cash, this.receivables, this.inventories, this.ppe, this.goodwill, this.LTInvestments, this.payables, this.STDebt, this.LTDebt, this.defRevenue, this.taxLiab, this.equity],
+        labels: ["cash", "receivables", "Inventories", "PPE", "Goodwill", "LT Inv", "Payables", "STDebt", "LTDebt", "defRevenue", "taxLiab", "Total shareholders equity"],
+        textinfo: "label+percent",
+        textposition: "outside",
+        title: "Balance",
+        automargin: true
+      }]
       var layout = {
         height: 400,
         width: 400,
@@ -96,6 +106,8 @@ export default {
 
       Plotly.newPlot('Assets', data, layout);
       Plotly.newPlot('Liabilities', dataLiab, layout)
+      Plotly.newPlot('Balance', dataBalance, layout)
+
     },
 
     async getCandleStick(stock) {
@@ -307,11 +319,16 @@ export default {
       </div>
 
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div id="Assets"></div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div id="Liabilities"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="balance">
+          <div id="Balance"></div>
         </div>
       </div>
     </div>
@@ -389,5 +406,11 @@ a {
 ::-webkit-scrollbar-thumb {
   background: #4d5bf9;
   border-radius: 7px;
+}
+
+#Balance {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
