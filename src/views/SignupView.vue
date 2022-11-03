@@ -81,7 +81,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgb(0, 0, 0, .1)url("../assets/logo.png");
+  background: rgb(0, 0, 0, 0.2)url("../assets/860914-stockmarket-istock-111518.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
 }

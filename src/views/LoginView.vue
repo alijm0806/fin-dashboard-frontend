@@ -35,7 +35,7 @@ export default {
   <div class="container-fluid">
     <section>
       <div class="imgBx">
-        <img src="../assets/logo.png">
+        <img src="../assets/860914-stockmarket-istock-111518.jpeg">
       </div>
       <div class="contentBx">
         <div class="formBx">

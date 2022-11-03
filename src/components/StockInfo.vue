@@ -10,9 +10,9 @@ export default {
     setTimeout(this.getCompanyValue, 1000);
     setTimeout(this.getChartPie, 1000);
     setTimeout(this.getInfo, 1000);
+    setTimeout(this.getIncome, 1000);
 
     return {
-      api_key: '6581d61260bde88fb3f91cd2af06dfcb',
       stock: 'AAPL',
       beta: "",
       infoCompany: "",
@@ -38,7 +38,14 @@ export default {
       xi: "",
       trace1: {},
       statement: [],
-      cash: ""
+      cash: "",
+      revenue: [],
+      COGS: [],
+      GrossProfit: [],
+      Opinc: [],
+      Netinc: [],
+      ISdate: [],
+      IStemp: '',
     }
 
   },
@@ -50,10 +57,36 @@ export default {
       this.getCompanyValue(stock);
       this.getCandleStick(stock);
       this.getChartPie(stock);
+      this.getIncome(stock)
+    },
+
+    async getIncome(stock) {
+      this.revenue = [],
+        this.COGS = [],
+        this.GrossProfit = [],
+        this.Opinc = [],
+        this.Netinc = [],
+        this.ISdate = [],
+        this.IStemp = '',
+
+        await axios.get(`https://financialmodelingprep.com/api/v3/income-statement/${this.stock}?limit=120&apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
+          this.IStemp = res.data
+          this.IStemp = this.IStemp.slice(0, 3)
+          for (this.xi of this.IStemp) {
+            this.revenue.push(this.xi.revenue / 1000000)
+            this.COGS.push(this.xi["costOfRevenue"] / 1000000)
+            this.GrossProfit.push(this.xi["grossProfit"] / 1000000)
+            this.Opinc.push(this.xi["operatingIncome"] / 1000000)
+            this.Netinc.push(this.xi["netIncome"] / 1000000)
+            this.ISdate.push(this.xi["date"])
+          }
+
+          console.log(this.COGS)
+        }).catch(err => console.log(err))
     },
 
     async getChartPie(stock) {
-      await axios.get(`https://financialmodelingprep.com/api/v3/financials/balance-sheet-statement/${this.stock}?limit=120&apikey=${this.api_key}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/financials/balance-sheet-statement/${this.stock}?limit=120&apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
         this.cash = res.data.financials[0]['Cash and cash equivalents']
         this.receivables = res.data.financials[0]['Receivables']
         this.inventories = res.data.financials[0]['Inventories']
@@ -73,17 +106,17 @@ export default {
         values: [this.cash, this.receivables, this.inventories, this.ppe, this.goodwill, this.LTInvestments, this.equity],
         labels: ["cash", "receivables", "Inventories", "PPE", "Goodwill", "LT Inv"],
         textinfo: "label+percent",
-        textposition: "outside",
+        insidetextorientation: "radial",
         title: "Assets",
         automargin: true
       }]
 
       var dataLiab = [{
         type: "pie",
-        values: [this.payables, this.STDebt, this.LTDebt, this.defRevenue, this.taxLiab],
-        labels: ["Payables", "STDebt", "LTDebt", "defRevenue", "taxLiab"],
+        values: [this.payables, this.STDebt, this.LTDebt, this.defRevenue, this.taxLiab, this.equity],
+        labels: ["Payables", "STDebt", "LTDebt", "defRevenue", "taxLiab", "Total shareholders equity"],
         textinfo: "label+percent",
-        textposition: "outside",
+        insidetextorientation: "radial",
         title: "Liabilities",
         automargin: true
       }]
@@ -93,7 +126,7 @@ export default {
         values: [this.cash, this.receivables, this.inventories, this.ppe, this.goodwill, this.LTInvestments, this.payables, this.STDebt, this.LTDebt, this.defRevenue, this.taxLiab, this.equity],
         labels: ["cash", "receivables", "Inventories", "PPE", "Goodwill", "LT Inv", "Payables", "STDebt", "LTDebt", "defRevenue", "taxLiab", "Total shareholders equity"],
         textinfo: "label+percent",
-        textposition: "outside",
+        insidetextorientation: "radial",
         title: "Balance",
         automargin: true
       }]
@@ -111,7 +144,7 @@ export default {
     },
 
     async getCandleStick(stock) {
-      await axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.stock}?timeseries=400&apikey=${this.api_key}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.stock}?timeseries=400&apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
         this.open = []
         this.close = []
         this.high = []
@@ -157,7 +190,7 @@ export default {
         xaxis: {
           autorange: true,
           rangeslider: { range: [this.x[0], this.x[1000]] },
-          title: 'Date',
+          title: 'Historical Data',
           type: 'date'
         },
         yaxis: {
@@ -171,7 +204,7 @@ export default {
     },
 
     async getCompanyValue(stock) {
-      await axios.get(`https://financialmodelingprep.com/api/v3/financial-ratios/${this.stock}?apikey=${this.api_key}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/financial-ratios/${this.stock}?apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
         console.log(this.res)
         this.ROA = parseFloat(res.data.ratios[0].profitabilityIndicatorRatios.returnOnAssets * 100).toFixed(2)
         this.ROE = parseFloat(res.data.ratios[0].profitabilityIndicatorRatios.returnOnEquity * 100).toFixed(2)
@@ -184,7 +217,7 @@ export default {
     async getInfo(stock) {
       // const api_key = process.env.API_KEY;
       // console.log(api_key);
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/${this.stock}?apikey=${this.api_key}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/${this.stock}?apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
         console.log(this.res)
         this.infoCompany = res.data.profile
         this.beta = parseFloat(this.infoCompany.beta).toFixed(2)
@@ -205,7 +238,7 @@ export default {
 <template>
   <div calss="hello">
     <div class="container">
-      <form class="navbar-form m-2" v-on:click.prevent="submit()">
+      <form class="navbar-form m-2 mt-5 mb-5" v-on:click.prevent="submit()">
         <div class="input-group nno-border">
           <input type="text" class="form-control" placeholder="Search..." v-model="stock">
           <button type="submit" value="Submit" class="btn btn-white btn-round btn-just-icon">
@@ -217,7 +250,7 @@ export default {
       </form>
 
       <!-- Basic Information -->
-      <div class="row ">
+      <div class="row pt-5 pb-5">
         <div class="col-md-3">
           <div class="card card-stats card-background">
             <div class="card-header card-header-icon">
@@ -225,7 +258,7 @@ export default {
                 <i class="material-icons">content_copy</i>
               </div>
               <p class="card-category">Beta</p>
-              <h4 class="card-title">{{ this.beta }}</h4>
+              <h3 class="card-title">{{ this.beta }}</h3>
             </div>
           </div>
         </div>
@@ -236,7 +269,7 @@ export default {
                 <i class="material-icons">store</i>
               </div>
               <p class="card-category">CEO</p>
-              <h4 class="card-title">{{ this.ceo }}</h4>
+              <h3 class="card-title">{{ this.ceo }}</h3>
             </div>
           </div>
         </div>
@@ -247,7 +280,7 @@ export default {
                 <i class="material-icons">info</i>
               </div>
               <p class="card-category">Comp. NAme</p>
-              <h4 class="card-title">{{ this.companyName }}</h4>
+              <h3 class="card-title">{{ this.companyName }}</h3>
             </div>
           </div>
         </div>
@@ -258,50 +291,20 @@ export default {
                 <i class="material-icons">storage</i>
               </div>
               <p class="card-category">Sector</p>
-              <h4 class="card-title">{{ this.sector }}</h4>
+              <h3 class="card-title">{{ this.sector }}</h3>
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
 
-          <div class="md-list mt-5">
-            <b-list-group horizontal class="col-md-3 mr-4">
-              <i class="material-icons">query_stats</i>
-              <span class="left">Price {{ this.price }}</span>
-              <span class="right">P/B {{ this.priceBookValueRatio }}</span>
-            </b-list-group>
-
-            <b-list-group horizontal class="col-md-3 mr-4">
-              <i class="material-icons">attach_money</i>
-              <span class="left">ROA {{ this.ROA }}%</span>
-              <span class="right">P/S {{ this.priceToSales }}</span>
-            </b-list-group>
-
-            <b-list-group horizontal class="col-md-3 mr-4">
-              <i class="material-icons">attach_money</i>
-              <span class="left">ROE {{ this.ROE }}%</span>
-              <span class="right">P/E {{ this.priceEarningsRatio }}</span>
-            </b-list-group>
-
-            <b-list-group horizontal class="col-md-3 mr-4">
-              <i class="material-icons">equalizer</i>
-              <span class="">Gross Profit Mar {{ this.grossProfitMargin }}%</span>
-            </b-list-group>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="row mt-5">
+      <div class="row pt-5 pb-5">
         <div class="col-md-4">
           <div class="card card-profile border-0">
             <div class="card-avatar">
               <img class="img" :src="image" alt="">
             </div>
-            <div class="card-body">
-              <h4 style="color:red">{{ this.companyName }}</h4>
+            <div class="card border-0">
+              <h4>{{ this.companyName }}</h4>
               <p class="scrollable">{{ this.description }}</p>
             </div>
           </div>
@@ -310,30 +313,112 @@ export default {
           <div class="card mb-3">
             <div class="card-body p-3">
               <div>
-                <div id="candleStick" height="300px"></div>
+                <div id="candleStick" height="400px"></div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
+
+      <h1 class="p-relative pt-5 text-danger">Ratios :</h1>
+
+      <div class="row bg-info pb-5 mt-5 mb-5 mr-1 text-dark rounded-4">
+        <div class="row mb-5">
+          <div class="col-md-12">
+            <div class="md-list mt-5">
+              <b-list-group horizontal class="col-md-3 mr-4">
+                <i class="material-icons">query_stats</i>
+                <span class="left">Price <b>{{ this.price }}</b></span>
+                <span class="right">P/B <b>{{ this.priceBookValueRatio }}</b></span>
+              </b-list-group>
+
+              <b-list-group horizontal class="col-md-3 mr-4">
+                <i class="material-icons">attach_money</i>
+                <span class="left">ROA <b>{{ this.ROA }}%</b></span>
+                <span class="right">P/S <b>{{ this.priceToSales }}</b></span>
+              </b-list-group>
+
+              <b-list-group horizontal class="col-md-3 mr-4">
+                <i class="material-icons">attach_money</i>
+                <span class="left">ROE <b>{{ this.ROE }}%</b></span>
+                <span class="right">P/E <b>{{ this.priceEarningsRatio }}</b></span>
+              </b-list-group>
+
+              <b-list-group horizontal class="col-md-3 mr-4">
+                <i class="material-icons">equalizer</i>
+                <span class="">Gross Profit Mar <b>{{ this.grossProfitMargin }}%</b></span>
+              </b-list-group>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h1 class="p-relative pt-5 mt-5 mb-5 text-danger align-center">Balance Sheet :</h1>
 
       <div class="row">
         <div class="col-md-6">
-          <div id="Assets"></div>
+          <p class="pie-title">ASSETS</p>
+          <div id="Assets" height="400px"></div>
         </div>
         <div class="col-md-6">
-          <div id="Liabilities"></div>
+          <p class="pie-title">LIABILITIES + EQUITY</p>
+          <div id="Liabilities" height="400px"></div>
         </div>
       </div>
-      <div class="row">
+      <div class="row mt-5">
+        <p class="pie-title">BALANCE</p>
         <div class="balance">
           <div id="Balance"></div>
         </div>
       </div>
+
+      <h1 class="p-relative pt-5 mt-5 mb-5 text-danger align-center">Income Statement :</h1>
+      <div class="row">
+        <div class="card-body table-responsive">
+          <table class="table table-hover">
+            <thead class="headingcostumable">
+              <th>In Millions</th>
+              <th>{{ ISdate[0] }}</th>
+              <th>{{ ISdate[1] }}</th>
+              <th>{{ ISdate[2] }}</th>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Revenue</td>
+                <td>$ {{ revenue[0] }}</td>
+                <td>$ {{ revenue[1] }}</td>
+                <td>$ {{ revenue[2] }}</td>
+              </tr>
+              <tr>
+                <td>COGS</td>
+                <td>$ {{ COGS[0] }}</td>
+                <td>$ {{ COGS[1] }}</td>
+                <td>$ {{ COGS[2] }}</td>
+              </tr>
+              <tr>
+                <td>GrossProfit</td>
+                <td>$ {{ GrossProfit[0] }}</td>
+                <td>$ {{ GrossProfit[1] }}</td>
+                <td>$ {{ GrossProfit[2] }}</td>
+              </tr>
+              <tr>
+                <td>Opinc</td>
+                <td>$ {{ Opinc[0] }}</td>
+                <td>$ {{ Opinc[1] }}</td>
+                <td>$ {{ Opinc[2] }}</td>
+              </tr>
+              <tr>
+                <td>NetInc</td>
+                <td>$ {{ Netinc[0] }}</td>
+                <td>$ {{ Netinc[1] }}</td>
+                <td>$ {{ Netinc[2] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-
 </template>
 
 
@@ -342,6 +427,13 @@ export default {
 <style scoped>
 h3 {
   margin: 40px 0 0;
+  color: #a42fad;
+}
+
+h4 {
+  color: red;
+  text-decoration: underline;
+  margin-left: 1.5rem;
 }
 
 ul {
@@ -366,7 +458,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 120px;
+  max-height: 150px;
   margin-top: 5px;
 }
 
@@ -391,11 +483,12 @@ a {
 .scrollable {
   overflow-y: auto;
   max-height: 300px;
-
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 ::-webkit-scrollbar {
-  width: 20px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -412,5 +505,15 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.pie-title {
+  font-size: 30px;
+  color: rgb(33, 185, 51);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

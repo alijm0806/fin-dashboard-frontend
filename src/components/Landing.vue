@@ -9,7 +9,6 @@ export default {
   data: function () {
 
     return {
-      api_key: '6581d61260bde88fb3f91cd2af06dfcb',
       AAPLcompanyInfo: "",
       AAPLcompanyName: "",
       AAPLimage: "",
@@ -66,7 +65,7 @@ export default {
   },
   methods: {
     async getAppleInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AAPL?apikey=${this.api_key}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AAPL?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
         // console.log(this.res.data)
         this.AAPLcompanyInfo = res.data
         this.AAPLcompanyName = this.AAPLcompanyInfo.profile.companyName
@@ -81,7 +80,7 @@ export default {
       // console.log(this.beta)
     },
     async getGoogleInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/GOOG?apikey=${this.api_key}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/GOOG?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
         // console.log(this.res.data)
         this.GOOGcompanyInfo = res.data
         this.GOOGcompanyName = this.GOOGcompanyInfo.profile.companyName
@@ -96,7 +95,7 @@ export default {
       // console.log(this.beta)
     },
     async getMetaInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/META?apikey=${this.api_key}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/META?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
         // console.log(this.res.data)
         this.METAcompanyInfo = res.data
         this.METAcompanyName = this.METAcompanyInfo.profile.companyName
@@ -111,7 +110,7 @@ export default {
       // console.log(this.beta)
     },
     async getAmazonInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AMZN?apikey=${this.api_key}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AMZN?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
         // console.log(this.res.data)
         this.AMZNcompanyInfo = res.data
         this.AMZNcompanyName = this.AMZNcompanyInfo.profile.companyName
@@ -126,7 +125,7 @@ export default {
       // console.log(this.beta)
     },
     async getTeslaInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/TSLA?apikey=${this.api_key}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/TSLA?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
         // console.log(this.res.data)
         this.TSLAcompanyInfo = res.data
         this.TSLAcompanyName = this.TSLAcompanyInfo.profile.companyName
@@ -141,7 +140,7 @@ export default {
       // console.log(this.beta)
     },
     async getNetflixInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/NFLX?apikey=${this.api_key}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/NFLX?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
         // console.log(this.res.data)
         this.NFLXcompanyInfo = res.data
         this.NFLXcompanyName = this.NFLXcompanyInfo.profile.companyName
@@ -156,7 +155,7 @@ export default {
       // console.log(this.beta)
     },
     async getMicrosoftInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/MSFT?apikey=${this.api_key}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/MSFT?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
         // console.log(this.res.data)
         this.MSFTcompanyInfo = res.data
         this.MSFTcompanyName = this.MSFTcompanyInfo.profile.companyName
@@ -179,7 +178,7 @@ export default {
       <Sidebar />
 
     </div>
-
+    <h1 class="p-relative mt-5 mb-5 text-danger">Most Popular Stocks</h1>
     <div class="Table">
       <table class="table">
         <thead>
@@ -193,6 +192,19 @@ export default {
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <th scope="row"><img class="logo" :src="AAPLimage" alt=""></th>
+            <td>{{ this.AAPLsymbol }}</td>
+            <td>{{ this.AAPLcompanyName }}</td>
+            <td>{{ parseFloat(this.AAPLprice).toFixed(2) }}
+            </td>
+            <td :class="`${this.AAPLchangeValue > 0 ? 'positive' : 'negative'}`">{{
+                parseFloat(this.AAPLchangeValue).toFixed(2)
+            }}</td>
+            <td :class="`${this.AAPLchangePercentage > 0 ? 'positive' : 'negative'}`">{{
+                parseFloat(this.AAPLchangePercentage).toFixed(2)
+            }} %</td>
+          </tr>
           <tr>
             <th scope="row"><img class="logo" :src="MSFTimage" alt=""></th>
             <td>{{ this.MSFTsymbol }}</td>
@@ -275,7 +287,10 @@ export default {
         </tbody>
       </table>
     </div>
-    <h1 class="p-relative mt-5">Plans</h1>
+    <br>
+    <br>
+    <br>
+    <h1 class="p-relative mt-5 text-danger">Plans</h1>
     <div class="row mt-5">
       <div class="col-md-4 bg-light">
         <div class="plans-page d-grid m-20 gap-20">
@@ -284,7 +299,7 @@ export default {
               <h2 class="m-0 text-white">FREE</h2>
               <div class="price text-white"><span>$</span>0.00</div>
             </div>
-            <ul style="list-style: none;">
+            <ul>
               <li>
                 <i class="fa-solid fa-check fa-fw yes text-success"></i>
                 <span>Access All text Lessons</span>
@@ -316,8 +331,8 @@ export default {
                 <i class="fa-solid fa-circle-info help"></i>
               </li>
             </ul>
-            <button class="btn btn-primary">
-              <a href="/login" class="btn btn-primary bg-green c-white d-block w-fit">Join</a>
+            <button class="btn btn-success">
+              <a href="/signup" class="btn btn-success bg-green c-white d-block w-fit">Join</a>
             </button>
           </div>
         </div>
@@ -328,9 +343,9 @@ export default {
           <div class="plan silver bg-white p-20">
             <div class="top bg-secondary txt-c p-20">
               <h2 class="m-0 text-white">SILVER</h2>
-              <div class="price text-white"><span>$</span>0.00</div>
+              <div class="price text-white"><span>$</span>9.99</div>
             </div>
-            <ul style="list-style: none;">
+            <ul>
               <li>
                 <i class="fa-solid fa-check fa-fw yes text-success"></i>
                 <span>Access All text Lessons</span>
@@ -362,8 +377,8 @@ export default {
                 <i class="fa-solid fa-circle-info help"></i>
               </li>
             </ul>
-            <button class="btn btn-primary">
-              <a href="/login" class="btn btn-primary bg-green c-white d-block w-fit">Join</a>
+            <button class="btn btn-secondary">
+              <a href="/signup" class="btn btn-secondary bg-green c-white d-block w-fit">Join</a>
             </button>
           </div>
         </div>
@@ -374,9 +389,9 @@ export default {
           <div class="plan orange bg-white p-20">
             <div class="top bg-warning txt-c p-20">
               <h2 class="m-0 text-white">GOLD</h2>
-              <div class="price text-white"><span>$</span>0.00</div>
+              <div class="price text-white"><span>$</span>19.99</div>
             </div>
-            <ul style="list-style: none;">
+            <ul>
               <li>
                 <i class="fa-solid fa-check fa-fw yes text-success"></i>
                 <span>Access All text Lessons</span>
@@ -408,8 +423,8 @@ export default {
                 <i class="fa-solid fa-circle-info help"></i>
               </li>
             </ul>
-            <button class="btn btn-primary">
-              <a href="/login" class="btn btn-primary bg-green c-white d-block w-fit">Join</a>
+            <button class="btn btn-warning d-flex justify-content-center align-items-center">
+              <a href="/signup" class="btn btn-warning bg-green c-white d-block w-fit">Join</a>
             </button>
           </div>
         </div>
@@ -484,6 +499,7 @@ export default {
   align-items: center;
   font-size: 15px;
   border-bottom: 1px solid #eee;
+  list-style: none;
 }
 
 .plan li {
@@ -510,9 +526,5 @@ export default {
   color: grey;
   margin-left: auto;
   cursor: pointer;
-}
-
-.btn-primary {
-  align-items: center;
 }
 </style>

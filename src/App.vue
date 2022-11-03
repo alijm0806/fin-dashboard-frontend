@@ -23,10 +23,10 @@
               <b></b>
               <b></b>
               <a href="#">
-                <span class="icon">
+                <span v-if="isLoggedIn" class="icon">
                   <ion-icon name="stats-chart-outline"></ion-icon>
                 </span>
-                <span class="title">Stocks</span>
+                <span v-if="isLoggedIn" class="title">Stocks</span>
               </a>
             </router-link>
           </li>
@@ -36,10 +36,10 @@
               <b></b>
               <b></b>
               <a href="#">
-                <span class="icon">
-                  <ion-icon name="settings-outline"></ion-icon>
+                <span v-if="!isLoggedIn" class="icon">
+                  <ion-icon name="log-in-outline"></ion-icon>
                 </span>
-                <span class="title">Login</span>
+                <span v-if="!isLoggedIn" class="title">Login</span>
               </a>
             </router-link>
           </li>
@@ -49,10 +49,10 @@
               <b></b>
               <b></b>
               <a href="#">
-                <span class="icon">
+                <span v-if="isLoggedIn" class="icon">
                   <ion-icon name="logo-usd"></ion-icon>
                 </span>
-                <span class="title">Currencies</span>
+                <span v-if="isLoggedIn" class="title">Currencies</span>
               </a>
             </router-link>
           </li>
@@ -62,10 +62,10 @@
               <b></b>
               <b></b>
               <a href="#">
-                <span class="icon">
+                <span v-if="isLoggedIn" class="icon">
                   <ion-icon name="logo-bitcoin"></ion-icon>
                 </span>
-                <span class="title">Cryptocurrency</span>
+                <span v-if="isLoggedIn" class="title">Cryptocurrency</span>
               </a>
             </router-link>
           </li>
@@ -75,10 +75,10 @@
               <b></b>
               <b></b>
               <a href="#">
-                <span class="icon">
+                <span v-if="isLoggedIn" class="icon">
                   <ion-icon name="log-out-outline"></ion-icon>
                 </span>
-                <span class="title">Log out</span>
+                <span v-if="isLoggedIn" class="title">Log out</span>
               </a>
             </router-link>
           </li>
@@ -135,6 +135,7 @@ export default {
   background-position: center;
   width: 100%;
   min-height: 100vh;
+  background: rgb(240, 237, 237);
 }
 
 .container {
@@ -180,6 +181,7 @@ nav a.router-link-exact-active {
   border-left: 5px solid #4d5bf9;
   background: #4d5bf9;
   overflow: hidden;
+  border-radius: 25px;
 }
 
 .aside.active {
@@ -337,5 +339,9 @@ nav a.router-link-exact-active {
   background-color: white;
   border-radius: 10px;
   margin: 6px 6px 6px 0px;
+}
+
+h1 {
+  text-decoration: underline;
 }
 </style>
