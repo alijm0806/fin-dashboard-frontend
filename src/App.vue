@@ -118,13 +118,13 @@ export default {
   display: flex;
   flex: 1 1 0;
   max-width: 100%;
+  background: rgba(0, 0, 0, 0.3)url("./assets/860914-stockmarket-istock-111518.jpeg");
   background-size: cover;
   background-blend-mode: darken;
   background-repeat: no-repeat;
   background-position: center;
   width: 100%;
   min-height: 100vh;
-  background: rgb(240, 237, 237);
   font-family: "Eina";
 }
 
@@ -336,7 +336,7 @@ nav a.router-link-exact-active {
 }
 
 h1 {
-  color: #2c3e50;
+  color: #ff4d89;
   text-decoration: underline;
 }
 </style>

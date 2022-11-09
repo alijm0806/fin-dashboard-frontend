@@ -9,6 +9,7 @@ export default {
   data: function () {
 
     return {
+      isLoggedIn: !!localStorage.jwt,
       AAPLcompanyInfo: "",
       AAPLcompanyName: "",
       AAPLimage: "",
@@ -59,13 +60,17 @@ export default {
       MSFTchangeValue: "",
       MSFTchangePercentage: "",
     }
+  }, watch: {
+    $route: function () {
+      this.isLoggedIn = !!localStorage.jwt
+    }
   },
   mounted: function () {
     this.getAppleInfos(), this.getAmazonInfos(), this.getGoogleInfos(), this.getMetaInfos(), this.getTeslaInfos(), this.getMicrosoftInfos(), this.getNetflixInfos()
   },
   methods: {
     async getAppleInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AAPL?apikey=${process.env.VUE_APP_API_KEY4}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AAPL?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
 
         this.AAPLcompanyInfo = res.data
         this.AAPLcompanyName = this.AAPLcompanyInfo.profile.companyName
@@ -78,7 +83,7 @@ export default {
       console.log(this.AAPLprice)
     },
     async getGoogleInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/GOOG?apikey=${process.env.VUE_APP_API_KEY4}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/GOOG?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
 
         this.GOOGcompanyInfo = res.data
         this.GOOGcompanyName = this.GOOGcompanyInfo.profile.companyName
@@ -91,7 +96,7 @@ export default {
       console.log(this.GOOGprice)
     },
     async getMetaInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/META?apikey=${process.env.VUE_APP_API_KEY4}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/META?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
 
         this.METAcompanyInfo = res.data
         this.METAcompanyName = this.METAcompanyInfo.profile.companyName
@@ -104,7 +109,7 @@ export default {
       console.log(this.METAprice)
     },
     async getAmazonInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AMZN?apikey=${process.env.VUE_APP_API_KEY4}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AMZN?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
 
         this.AMZNcompanyInfo = res.data
         this.AMZNcompanyName = this.AMZNcompanyInfo.profile.companyName
@@ -117,7 +122,7 @@ export default {
       console.log(this.METAprice)
     },
     async getTeslaInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/TSLA?apikey=${process.env.VUE_APP_API_KEY4}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/TSLA?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
 
         this.TSLAcompanyInfo = res.data
         this.TSLAcompanyName = this.TSLAcompanyInfo.profile.companyName
@@ -130,7 +135,7 @@ export default {
       console.log(this.METAprice)
     },
     async getNetflixInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/NFLX?apikey=${process.env.VUE_APP_API_KEY4}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/NFLX?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
 
         this.NFLXcompanyInfo = res.data
         this.NFLXcompanyName = this.NFLXcompanyInfo.profile.companyName
@@ -143,7 +148,7 @@ export default {
       console.log(this.METAprice)
     },
     async getMicrosoftInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/MSFT?apikey=${process.env.VUE_APP_API_KEY4}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/MSFT?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
 
         this.MSFTcompanyInfo = res.data
         this.MSFTcompanyName = this.MSFTcompanyInfo.profile.companyName
@@ -329,145 +334,146 @@ export default {
         </tbody>
       </table>
     </div>
-    <br>
-    <br>
-    <br>
-    <h1 class="p-relative mt-5">Plans</h1>
-    <div class="row mt-5">
-      <div class="col-md-4 bg-light">
-        <div class="plans-page d-grid m-20 gap-20">
-          <div class="plan green bg-white p-20">
-            <div class="top bg-success txt-c p-20">
-              <h2 class="m-0 text-white">FREE</h2>
-              <div class="price text-white"><span>$</span>0.00</div>
+    <div v-if="!isLoggedIn">
+      <h1 class="p-relative mt-5">Plans</h1>
+      <div class=" card card-body">
+        <div class="row mt-5">
+          <div class="col-md-4 bg-light">
+            <div class="plans-page d-grid m-20 gap-20">
+              <div class="plan green bg-white p-20">
+                <div class="top bg-success txt-c p-20">
+                  <h2 class="m-0 text-white">FREE</h2>
+                  <div class="price text-white"><span>$</span>0.00</div>
+                </div>
+                <ul>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                </ul>
+                <button class="btn btn-success">
+                  <a href="/signup" class="btn btn-success bg-green c-white d-block w-fit">Join</a>
+                </button>
+              </div>
             </div>
-            <ul>
-              <li>
-                <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-            </ul>
-            <button class="btn btn-success">
-              <a href="/signup" class="btn btn-success bg-green c-white d-block w-fit">Join</a>
-            </button>
           </div>
-        </div>
-      </div>
 
-      <div class="col-md-4 bg-light">
-        <div class="plans-page d-grid m-20 gap-20">
-          <div class="plan silver bg-white p-20">
-            <div class="top bg-secondary txt-c p-20">
-              <h2 class="m-0 text-white">SILVER</h2>
-              <div class="price text-white"><span>$</span>9.99</div>
+          <div class="col-md-4 bg-light">
+            <div class="plans-page d-grid m-20 gap-20">
+              <div class="plan silver bg-white p-20">
+                <div class="top bg-secondary txt-c p-20">
+                  <h2 class="m-0 text-white">SILVER</h2>
+                  <div class="price text-white"><span>$</span>9.99</div>
+                </div>
+                <ul>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                </ul>
+                <button class="btn btn-secondary">
+                  <a href="/signup" class="btn btn-secondary bg-green c-white d-block w-fit">Join</a>
+                </button>
+              </div>
             </div>
-            <ul>
-              <li>
-                <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-            </ul>
-            <button class="btn btn-secondary">
-              <a href="/signup" class="btn btn-secondary bg-green c-white d-block w-fit">Join</a>
-            </button>
           </div>
-        </div>
-      </div>
 
-      <div class="col-md-4 bg-light">
-        <div class="plans-page d-grid m-20 gap-20">
-          <div class="plan orange bg-white p-20">
-            <div class="top bg-warning txt-c p-20">
-              <h2 class="m-0 text-white">GOLD</h2>
-              <div class="price text-white"><span>$</span>19.99</div>
+          <div class="col-md-4 bg-light">
+            <div class="plans-page d-grid m-20 gap-20">
+              <div class="plan orange bg-white p-20">
+                <div class="top bg-warning txt-c p-20">
+                  <h2 class="m-0 text-white">GOLD</h2>
+                  <div class="price text-white"><span>$</span>19.99</div>
+                </div>
+                <ul>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
+                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                </ul>
+                <button class="btn btn-warning d-flex justify-content-center align-items-center">
+                  <a href="/signup" class="btn btn-warning bg-green c-white d-block w-fit">Join</a>
+                </button>
+              </div>
             </div>
-            <ul>
-              <li>
-                <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-              <li>
-                <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                <span>Access All text Lessons</span>
-                <i class="fa-solid fa-circle-info help"></i>
-              </li>
-            </ul>
-            <button class="btn btn-warning d-flex justify-content-center align-items-center">
-              <a href="/signup" class="btn btn-warning bg-green c-white d-block w-fit">Join</a>
-            </button>
           </div>
         </div>
       </div>
@@ -479,6 +485,12 @@ export default {
 .logo {
   width: 3rem;
   height: 3rem;
+}
+
+.Table {
+  background: rgb(245, 247, 245, 0.8);
+  border: black solid;
+  box-shadow: 5px 5px 5px 5px;
 }
 
 .table td {

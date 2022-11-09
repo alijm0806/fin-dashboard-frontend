@@ -34,20 +34,20 @@ export default {
 <template>
   <div class="container-fluid">
     <section class="signup">
-      <!-- <div class="imgBx">
-        <img src="../assets/logo.png">
-      </div> -->
       <div class="contentBx">
         <div class="formBx">
           <h2>Sign Up</h2>
           <form v-on:submit.prevent="submit()">
             <div class="inputBx">
-              <span>Email</span>
+              <span>Email :</span>
               <input type="email" placeholder="Email" class="form-control" v-model="newSessionParams.email">
             </div>
             <div class="inputBx">
-              <span>Password</span>
+              <span>Password :</span>
               <input type="password" placeholder="Password" class="form-control" minlength="6"
+                v-model="newSessionParams.password">
+              <span>Password Confirmation :</span>
+              <input type="password" placeholder="Password Confirmation" class="form-control" minlength="6"
                 v-model="newSessionParams.password">
             </div>
             <div class="inputBx">
@@ -56,9 +56,9 @@ export default {
           </form>
           <h3>Login with social media</h3>
           <ul class="sci">
-            <li><i class="fa-brands fa-facebook-f"></i></li>
-            <li><i class="fa-brands fa-twitter"></i></li>
-            <li><i class="fa-brands fa-instagram"></i></li>
+            <li class="facebook"><i class="fa-brands fa-facebook-f"></i></li>
+            <li class="twitter"><i class="fa-brands fa-twitter"></i></li>
+            <li class="instagram"><i class="fa-brands fa-instagram"></i></li>
           </ul>
         </div>
       </div>
@@ -81,29 +81,30 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgb(0, 0, 0, 0.2)url("../assets/860914-stockmarket-istock-111518.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
+
 }
 
 .signup .contentBx {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 60%;
   height: 100%;
 }
 
 .signup .contentBx .formBx {
   width: 100%;
+  background: rgba(214, 224, 230, 0.8);
 }
 
 .signup .contentBx .formBx h2 {
-  color: #607d8b;
+  color: #272b2c;
   font-weight: 600;
   font-size: 1.5em;
   text-transform: uppercase;
-  margin-bottom: 20px;
+  margin: 20px 20px 20px;
   border-bottom: 4px solid #ff4584;
   letter-spacing: 1px
 }
@@ -114,8 +115,8 @@ export default {
 
 .signup .contentBx .formBx .inputBx span {
   font-size: 16px;
-  margin-bottom: 5px;
-  color: #607d8b;
+  margin: 20px 20px 5px;
+  color: #0c0d0d;
   font-weight: 300;
   font-size: 16px;
   letter-spacing: 1px;
@@ -126,12 +127,14 @@ export default {
   font-size: 16px;
   font-weight: 400;
   padding: 10px 20px;
+  margin: 20px 20px 5px;
   outline: none;
-  border: 1px solid #607d8b;
+  border: 1px solid #272b2c;
   letter-spacing: 1px;
-  color: #607d8b;
+  color: #272b2c;
   background: transparent;
   border-radius: 30px;
+  max-width: 90%;
 }
 
 .signup .contentBx .formBx .inputBx input[type="submit"] {
@@ -150,39 +153,70 @@ export default {
 .remember {
   display: flex;
   margin-bottom: 10px;
-  color: #607d8b;
+  color: #272b2c;
   font-weight: 400;
   font-size: 14px;
+  margin: 20px 20px 5px;
 }
 
 .signup .contentBx .formBx .inputBx p {
-  color: #607d8b;
+  color: #272b2c;
+  margin: 20px 20px 5px;
 }
 
 .signup .contentBx .formBx .inputBx p a {
   color: #ff4584;
+  margin: 20px 20px 5px;
 }
 
 .signup .contentBx .formBx h3 {
-  color: #607d8b;
+  color: #272b2c;
   margin: 80px 0 10px;
   font-weight: 500;
+  margin: 20px 20px 5px;
 }
 
 .signup .contentBx .formBx .sci {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 20px 20px 20px 20px;
 }
 
-.signup .contentBx .formBx .sci li {
+.signup .contentBx .formBx .sci .facebook {
   list-style: none;
   width: 50px;
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #607d8b;
+  background: #3B5999;
+  border-radius: 50%;
+  margin: 0 7px;
+  cursor: pointer;
+}
+
+.signup .contentBx .formBx .sci .twitter {
+  list-style: none;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #46C1F6;
+  border-radius: 50%;
+  margin: 0 7px;
+  cursor: pointer;
+}
+
+.signup .contentBx .formBx .sci .instagram {
+  list-style: none;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(224, 49, 136);
   border-radius: 50%;
   margin: 0 7px;
   cursor: pointer;
@@ -217,12 +251,12 @@ export default {
   .signup .contentBx .formBx {
     width: 100%;
     padding: 40px;
-    background: rgba(255 255 255 / 0.9);
+    background: rgb(255, 255, 255);
     margin: 50px;
   }
 
   .signup .contentBx .formBx h3 {
-    color: #607d8b;
+    color: #272b2c;
     text-align: center;
     margin: 30px 0 10px;
     font-weight: 500;

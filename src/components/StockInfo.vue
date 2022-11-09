@@ -357,8 +357,8 @@ export default {
         </div>
       </div>
       <h1 class="p-relative pt-5 mt-5 mb-5 align-center">Income Statement :</h1>
-      <div class="row">
-        <div class="card card-body table-responsive">
+      <div class="card card-body table-responsive">
+        <div class="row">
           <table class="table table-hover">
             <thead class="headingcostumable">
               <th>In Millions</th>
