@@ -58,19 +58,6 @@
           </li>
 
           <li class="list">
-            <router-link to="/cryptocurrency" class="button">
-              <b></b>
-              <b></b>
-              <a href="#">
-                <span v-if="isLoggedIn" class="icon">
-                  <ion-icon name="logo-bitcoin"></ion-icon>
-                </span>
-                <span v-if="isLoggedIn" class="title">Cryptocurrency</span>
-              </a>
-            </router-link>
-          </li>
-
-          <li class="list">
             <router-link to="/logout" class="button">
               <b></b>
               <b></b>
@@ -85,9 +72,11 @@
         </ul>
       </div>
     </aside>
-    <div :class="`${active ? 'toggle active' : 'toggle'}`" v-on:click="active = !active">
-      <ion-icon name="menu-outline" class="open"></ion-icon>
-      <ion-icon name="close-outline" class="close"></ion-icon>
+    <div class="header">
+      <div :class="`${active ? 'toggle active' : 'toggle'}`" v-on:click="active = !active">
+        <ion-icon name="menu-outline" class="open"></ion-icon>
+        <ion-icon name="close-outline" class="close"></ion-icon>
+      </div>
     </div>
     <div class="container">
       <router-view />
@@ -122,7 +111,7 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Fira sans', sans-serif;
+
 }
 
 .app {
@@ -136,15 +125,19 @@ export default {
   width: 100%;
   min-height: 100vh;
   background: rgb(240, 237, 237);
+  font-family: "Eina";
 }
 
 .container {
   position: sticky;
   overflow: scroll;
-  height: 100vh;
+  height: calc(100vh - 80px);
+  max-height: 100%;
   scroll-behavior: smooth;
-  margin-top: 50px;
-  flex: 1 1 0
+  margin-top: 100px;
+  flex: 1 1 0;
+  transition: none;
+  box-sizing: border-box;
 }
 
 ::-webkit-scrollbar {
@@ -296,6 +289,9 @@ nav a.router-link-exact-active {
   letter-spacing: 3PX;
 }
 
+.header {
+  position: sticky;
+}
 
 .toggle {
   position: fixed;
@@ -316,7 +312,6 @@ nav a.router-link-exact-active {
   background: #ff4d89;
 }
 
-
 .toggle ion-icon {
   position: absolute;
   color: #fff;
@@ -334,7 +329,6 @@ nav a.router-link-exact-active {
   display: none;
 }
 
-
 .content {
   background-color: white;
   border-radius: 10px;
@@ -342,6 +336,7 @@ nav a.router-link-exact-active {
 }
 
 h1 {
+  color: #2c3e50;
   text-decoration: underline;
 }
 </style>
