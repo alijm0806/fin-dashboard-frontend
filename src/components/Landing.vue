@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     async getAppleInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AAPL?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AAPL?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
 
         this.AAPLcompanyInfo = res.data
         this.AAPLcompanyName = this.AAPLcompanyInfo.profile.companyName
@@ -83,7 +83,7 @@ export default {
       console.log(this.AAPLprice)
     },
     async getGoogleInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/GOOG?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/GOOG?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
 
         this.GOOGcompanyInfo = res.data
         this.GOOGcompanyName = this.GOOGcompanyInfo.profile.companyName
@@ -96,7 +96,7 @@ export default {
       console.log(this.GOOGprice)
     },
     async getMetaInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/META?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/META?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
 
         this.METAcompanyInfo = res.data
         this.METAcompanyName = this.METAcompanyInfo.profile.companyName
@@ -109,7 +109,7 @@ export default {
       console.log(this.METAprice)
     },
     async getAmazonInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AMZN?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AMZN?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
 
         this.AMZNcompanyInfo = res.data
         this.AMZNcompanyName = this.AMZNcompanyInfo.profile.companyName
@@ -122,7 +122,7 @@ export default {
       console.log(this.METAprice)
     },
     async getTeslaInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/TSLA?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/TSLA?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
 
         this.TSLAcompanyInfo = res.data
         this.TSLAcompanyName = this.TSLAcompanyInfo.profile.companyName
@@ -135,7 +135,7 @@ export default {
       console.log(this.METAprice)
     },
     async getNetflixInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/NFLX?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/NFLX?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
 
         this.NFLXcompanyInfo = res.data
         this.NFLXcompanyName = this.NFLXcompanyInfo.profile.companyName
@@ -148,7 +148,7 @@ export default {
       console.log(this.METAprice)
     },
     async getMicrosoftInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/MSFT?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/MSFT?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
 
         this.MSFTcompanyInfo = res.data
         this.MSFTcompanyName = this.MSFTcompanyInfo.profile.companyName

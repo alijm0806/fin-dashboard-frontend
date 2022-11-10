@@ -78,7 +78,7 @@ export default {
         this.ISdate = [],
         this.IStemp = '',
 
-        await axios.get(`https://financialmodelingprep.com/api/v3/income-statement/${this.stock}?limit=120&apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
+        await axios.get(`https://financialmodelingprep.com/api/v3/income-statement/${this.stock}?limit=120&apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
           this.IStemp = res.data
           this.IStemp = this.IStemp.slice(0, 3)
           for (this.xi of this.IStemp) {
@@ -102,7 +102,7 @@ export default {
     },
 
     async getChartPie(stock) {
-      await axios.get(`https://financialmodelingprep.com/api/v3/financials/balance-sheet-statement/${this.stock}?limit=120&apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/financials/balance-sheet-statement/${this.stock}?limit=120&apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
         this.cash = res.data.financials[0]['Cash and cash equivalents']
         this.receivables = res.data.financials[0]['Receivables']
         this.inventories = res.data.financials[0]['Inventories']
@@ -160,7 +160,7 @@ export default {
     },
 
     async getCandleStick(stock) {
-      await axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.stock}?timeseries=400&apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.stock}?timeseries=400&apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
         this.open = []
         this.close = []
         this.high = []
@@ -220,7 +220,7 @@ export default {
     },
 
     async getCompanyValue(stock) {
-      await axios.get(`https://financialmodelingprep.com/api/v3/financial-ratios/${this.stock}?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/financial-ratios/${this.stock}?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
         console.log(this.res)
         this.ROA = parseFloat(res.data.ratios[0].profitabilityIndicatorRatios.returnOnAssets * 100).toFixed(2)
         this.ROE = parseFloat(res.data.ratios[0].profitabilityIndicatorRatios.returnOnEquity * 100).toFixed(2)
@@ -233,7 +233,7 @@ export default {
     async getInfo(stock) {
       // const api_key = process.env.API_KEY;
       // console.log(api_key);
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/${this.stock}?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/${this.stock}?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
         console.log(this.res)
         this.infoCompany = res.data.profile
         this.beta = parseFloat(this.infoCompany.beta).toFixed(2)
