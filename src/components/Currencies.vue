@@ -1,7 +1,10 @@
 <script>
 import axios from 'axios'
+import getSymbolFromCurrency from 'currency-symbol-map'
+import currencyToSymbolMap from 'currency-symbol-map/map'
 
 export default {
+
   name: 'currencies',
   props: {
     msg: String
@@ -9,19 +12,24 @@ export default {
   data: function () {
 
     return {
+
       CurrenciesInfo: [],
       startUsds: [],
       endUsds: [],
       tickerInfos: [],
-      USDInfos: []
+      USDS: [],
+      symbols: [currencyToSymbolMap],
+      searchTerm: "",
+      lowerSearchTerm: "",
     }
+
   },
   mounted: function () {
-    this.getCurrenciesInfos()
+    this.getCurrenciesInfos(), getSymbolFromCurrency()
   },
   methods: {
     async getCurrenciesInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/fx?apikey=${process.env.VUE_APP_API_KEY4}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/fx?apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
         this.CurrenciesInfo = res.data
         this.startUsds = this.CurrenciesInfo.filter(function (USDInfo) {
           if (USDInfo.ticker.length < 8)
@@ -32,8 +40,8 @@ export default {
             return USDInfo.ticker.endsWith("/USD");
         });
 
-        console.log(this.startUsds)
-        console.log(this.endUsds)
+        console.log(this.USDs)
+        console.log(this.endUsds);
         this.tickerInfos = this.endUsds.map(function (item) {
 
           var itemData = {
@@ -46,9 +54,18 @@ export default {
           }
           return itemData;
         });
-        console.log("tickerInfos", tickerInfos)
+        this.USDS = this.startUsds.concat(this.tickerInfos)
+        console.log("tickerInfos", USDS);
+        console.log(symbols)
       }).catch(err => console.log(err));
-    }
+    },
+    filterCurrencies: function () {
+      return this.USDS.filter(USD => {
+        var lowerSearchTerm = this.searchTerm.toLowerCase();
+        var lowerCurrencyName = USD.ticker.toLowerCase();
+        return lowerCurrencyName.includes(this.searchTerm);
+      })
+    },
   }
 }
 </script>
@@ -58,37 +75,25 @@ export default {
       <Sidebar />
     </div>
 
-    <h1 class="p-relative mt-5 mb-5"> US Dollar Exchange Rates :</h1>
+    <h1 class="p-relative mt-5 mb-5"> LIVE US Dollar Exchange Rates (FX):</h1>
     <div class="search-currencies">
-      <input placeholder="Search currency..." type="text" class="cur-input" maxlength="3">
+      <input placeholder="Search currency..." v-model="searchTerm" type="text" class="cur-input" maxlength="3">
     </div>
-    <div>{{ startUsds[0] }}</div>
+
     <div class="row">
       <div class="col">
-        <div class="card card-currencies" v-for="startUsd in startUsds" v-bind:key="startUsd.id">
-          <div class="card-header">
-            {{ startUsd.ticker }}
+        <div class="card card-currencies" v-for="USD in filterCurrencies()" v-bind:key="USD.id">
+          <div class="card-header-currencies">
+            <h1 class="ticker">{{ (USD.ticker) }}</h1>
+            <div class="symbols">{{ symbols[0][`${USD.ticker.substring(4, 7)}`] }}</div>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">PRICE : {{ parseFloat(startUsd.ask).toFixed(4) }}</li>
-            <li class="list-group-item">Change : {{ parseFloat(startUsd.changes).toFixed(4) }}</li>
-            <li class="list-group-item">Change(%) :
-              {{ parseFloat(((startUsd.ask - startUsd.open) / startUsd.open) * 100).toFixed(4) }} %</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <div class="card card-currencies" v-for="tickerInfo in tickerInfos" v-bind:key="tickerInfo.id">
-          <div class="card-header">
-            {{ tickerInfo.ticker }}
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">PRICE : {{ parseFloat(tickerInfo.ask).toFixed(5) }}</li>
-            <li class="list-group-item">Change : {{ parseFloat(tickerInfo.ask - tickerInfo.open).toFixed(5) }}</li>
-            <li class="list-group-item">Change(%) :
-              {{ parseFloat((tickerInfo.changes / tickerInfo.open) * 100).toFixed(5) }} %</li>
+            <li class="list-group-item"><b>PRICE : </b> {{ parseFloat(USD.ask).toFixed(4) }}
+            </li>
+            <li class="list-group-item"><b>Open : </b> {{ parseFloat(USD.open).toFixed(4) }}
+            </li>
+            <li class="list-group-item"><b>Change : </b> {{ parseFloat(USD.ask - USD.open).toFixed(4) }}
+            </li>
           </ul>
         </div>
       </div>
@@ -99,30 +104,7 @@ export default {
 <style>
 .col {
   display: contents;
-}
-
-.card-currencies {
-  display: flex;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin: 16px 16px;
-  width: 18rem;
-  height: 20rem;
-  min-width: 290px;
-  min-height: 200px;
-  row-gap: 32px;
-  cursor: pointer;
-  border-radius: 20px;
-  /* background-image: linear-gradient(to bottom right, #24D484, #116432); */
-
-}
-
-.card-currencies li {
-  /* background-image: linear-gradient(to bottom right, #d61af3, #e9131a); */
-}
-
-.card-currencies:hover {
-  box-shadow: rgb(41, 39, 39) 4px 4px 4px 4px;
+  background: #0791e6;
 }
 
 .cur-input {
@@ -150,6 +132,78 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
+}
+
+.card-header-currencies {
+  display: inline-flex;
+  align-content: center;
+  height: 60px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: larger;
+  margin-top: 10px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  background-image: linear-gradient(to bottom right, #6ea3db, #8d19d1);
+}
+
+.card-header-currencies .ticker {
+  color: #902f73;
+  margin-left: 7px;
+}
+
+.symbols {
+  display: grid;
+  color: goldenrod;
+  font-weight: bold;
+  background-color: white;
+  width: 55px;
+  height: 55px;
+  justify-items: center;
+  align-content: center;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-top: 3px;
+  margin-left: auto;
+  /* margin-right: 5px; */
+  font-size: 24px;
+}
+
+.card-currencies {
+  display: flex;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin: 16px 16px 16px;
+  width: 18rem;
+  height: 500px;
+  row-gap: 60px;
+  border-radius: 40px;
+  background: #e2f4ef;
+  background-image: linear-gradient(to bottom right, #598ad2, #aa6fa8);
+}
+
+.list-group {
+  vertical-align: middle;
+  height: 160px;
+}
+
+.card-currencies li {
+  height: 45px;
+  vertical-align: middle;
+  font-size: 20px;
+  background-image: linear-gradient(to bottom right, #d6e0e6, #5464dc);
+  margin-bottom: 5px;
+}
+
+.card-currencies:hover {
+  box-shadow: 4px 4px 4px #8d19d1;
+}
+
+
+li:hover {
+  -webkit-animation: animation 1000ms linear both;
+  animation: animation 1000ms linear both;
+  box-shadow: 0px 0px 6px #00c3ffd4;
 }
 </style>

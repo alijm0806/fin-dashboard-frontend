@@ -75,7 +75,7 @@ export default {
 }
 
 .signup {
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -88,6 +88,7 @@ export default {
 
 .signup .contentBx {
   display: flex;
+  position: absolute;
   justify-content: center;
   align-items: center;
   width: 60%;

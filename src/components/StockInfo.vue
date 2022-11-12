@@ -123,7 +123,7 @@ export default {
         labels: ["cash", "receivables", "Inventories", "PPE", "Goodwill", "LT Inv"],
         textinfo: "label+percent",
         insidetextorientation: "radial",
-        title: "Assets",
+        title: "",
         automargin: true
       }]
 
@@ -133,7 +133,7 @@ export default {
         labels: ["Payables", "STDebt", "LTDebt", "defRevenue", "taxLiab", "Total shareholders equity"],
         textinfo: "label+percent",
         insidetextorientation: "radial",
-        title: "Liabilities + Equity",
+        title: "",
         automargin: true
       }]
 
@@ -143,7 +143,7 @@ export default {
         labels: ["cash", "receivables", "Inventories", "PPE", "Goodwill", "LT Inv", "Payables", "STDebt", "LTDebt", "defRevenue", "taxLiab", "Total shareholders equity"],
         textinfo: "label+percent",
         insidetextorientation: "radial",
-        title: "Balance",
+        title: "",
         automargin: true
       }]
       var layout = {
@@ -477,6 +477,9 @@ export default {
           </div>
         </div>
       </div>
+      <br>
+      <br>
+      <br>
     </div>
   </div>
 </template>
@@ -599,8 +602,9 @@ a {
 .scrollable {
   overflow-y: auto;
   max-height: 300px;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-size: larger;
 }
 
 ::-webkit-scrollbar {

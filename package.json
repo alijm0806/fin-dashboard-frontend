@@ -12,6 +12,8 @@
     "bootstrap": "^5.2.2",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.8.3",
+    "currency-icons": "^1.0.14",
+    "currency-symbol-map": "^5.1.0",
     "dotenv": "^16.0.3",
     "plotly": "^1.0.6",
     "plotly.js-dist": "^2.16.0",

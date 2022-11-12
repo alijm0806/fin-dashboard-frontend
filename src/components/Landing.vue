@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     async getAppleInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AAPL?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AAPL?apikey=${process.env.VUE_APP_API_KEY4}`).then(res => {
 
         this.AAPLcompanyInfo = res.data
         this.AAPLcompanyName = this.AAPLcompanyInfo.profile.companyName
@@ -190,14 +190,14 @@ export default {
             <td>{{ parseFloat(this.AAPLprice).toFixed(2) }}
             </td>
             <td :class="`${this.AAPLchangeValue > 0 ? 'positive' : 'negative'}`">{{
-                parseFloat(this.AAPLchangeValue).toFixed(2)
+            parseFloat(this.AAPLchangeValue).toFixed(2)
             }} <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
               </span>
             </td>
             <td :class="`${this.AAPLchangePercentage > 0 ? 'positive' : 'negative'}`">{{
-                parseFloat(this.AAPLchangePercentage).toFixed(2)
+            parseFloat(this.AAPLchangePercentage).toFixed(2)
             }} % <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
@@ -211,14 +211,14 @@ export default {
             <td>{{ parseFloat(this.MSFTprice).toFixed(2) }}
             </td>
             <td :class="`${this.MSFTchangeValue > 0 ? 'positive' : 'negative'}`">{{
-                parseFloat(this.MSFTchangeValue).toFixed(2)
+            parseFloat(this.MSFTchangeValue).toFixed(2)
             }} <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
               </span>
             </td>
             <td :class="`${this.MSFTchangePercentage > 0 ? 'positive' : 'negative'}`">{{
-                parseFloat(this.MSFTchangePercentage).toFixed(2)
+            parseFloat(this.MSFTchangePercentage).toFixed(2)
             }} % <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
@@ -232,14 +232,14 @@ export default {
             <td>{{ parseFloat(this.NFLXprice).toFixed(2) }}
             </td>
             <td :class="`${this.NFLXchangeValue > 0 ? 'positive' : 'negative'}`">{{
-                parseFloat(this.NFLXchangeValue).toFixed(2)
+            parseFloat(this.NFLXchangeValue).toFixed(2)
             }} <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
               </span>
             </td>
             <td :class="`${this.NFLXchangePercentage > 0 ? 'positive' : 'negative'}`">{{
-                parseFloat(this.NFLXchangePercentage).toFixed(2)
+            parseFloat(this.NFLXchangePercentage).toFixed(2)
             }} % <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
@@ -253,14 +253,14 @@ export default {
             <td>{{ parseFloat(this.TSLAprice).toFixed(2) }}
             </td>
             <td :class="`${this.TSLAchangeValue > 0 ? 'positive' : 'negative'}`">{{
-                parseFloat(this.TSLAchangeValue).toFixed(2)
+            parseFloat(this.TSLAchangeValue).toFixed(2)
             }} <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
               </span>
             </td>
             <td :class="`${this.TSLAchangePercentage > 0 ? 'positive' : 'negative'}`">{{
-                parseFloat(this.TSLAchangePercentage).toFixed(2)
+            parseFloat(this.TSLAchangePercentage).toFixed(2)
             }} % <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
@@ -274,14 +274,14 @@ export default {
             <td>{{ parseFloat(this.GOOGprice).toFixed(2) }}
             </td>
             <td :class="`${this.GOOGchangeValue > 0 ? 'positive' : 'negative'}`">{{
-                parseFloat(this.GOOGchangeValue).toFixed(2)
+            parseFloat(this.GOOGchangeValue).toFixed(2)
             }} <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
               </span>
             </td>
             <td :class="`${this.GOOGchangePercentage > 0 ? 'positive' : 'negative'}`">{{
-                parseFloat(this.GOOGchangePercentage).toFixed(2)
+            parseFloat(this.GOOGchangePercentage).toFixed(2)
             }} % <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
@@ -293,17 +293,17 @@ export default {
             <td>{{ this.METAsymbol }}</td>
             <td>{{ this.METAcompanyName }}</td>
             <td>{{
-                parseFloat(this.METAprice).toFixed(2)
+            parseFloat(this.METAprice).toFixed(2)
             }}</td>
             <td :class="`${this.METAchangeValue > 0 ? 'positive' : 'negative'}`">{{
-                parseFloat(this.METAchangeValue).toFixed(2)
+            parseFloat(this.METAchangeValue).toFixed(2)
             }} <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
               </span>
             </td>
             <td :class="`${this.METAchangePercentage > 0 ? 'positive' : 'negative'}`">{{
-                parseFloat(this.METAchangePercentage).toFixed(2)
+            parseFloat(this.METAchangePercentage).toFixed(2)
             }} % <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
@@ -317,14 +317,14 @@ export default {
             <td>{{ parseFloat(this.AMZNprice).toFixed(2) }}
             </td>
             <td :class="`${this.AMZNchangeValue > 0 ? 'positive' : 'negative'}`">{{
-                parseFloat(this.AMZNchangeValue).toFixed(2)
+            parseFloat(this.AMZNchangeValue).toFixed(2)
             }} <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
               </span>
             </td>
             <td :class="`${this.AMZNchangePercentage > 0 ? 'positive' : 'negative'}`">{{
-                parseFloat(this.AMZNchangePercentage).toFixed(2)
+            parseFloat(this.AMZNchangePercentage).toFixed(2)
             }} % <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
@@ -348,32 +348,47 @@ export default {
                 <ul>
                   <li>
                     <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                    <span>Access All text Lessons</span>
+                    <span>Ideal for Testing your ideas</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                   <li>
                     <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                    <span>Access All text Lessons</span>
+                    <span>Only US</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                   <li>
                     <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                    <span>Access All text Lessons</span>
+                    <span>250 requests / day</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Priority Email Support</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Only annual data</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Cancel anytime</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                   <li>
                     <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                    <span>Access All text Lessons</span>
+                    <span>Premium endpoints</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                   <li>
                     <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                    <span>Access All text Lessons</span>
+                    <span>Priority Email Support</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                   <li>
                     <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                    <span>Access All text Lessons</span>
+                    <span>WebSocket</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                 </ul>
@@ -394,32 +409,47 @@ export default {
                 <ul>
                   <li>
                     <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                    <span>Access All text Lessons</span>
+                    <span>Best for Personal projects</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                   <li>
                     <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                    <span>Access All text Lessons</span>
+                    <span>100% Market Coverage</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                   <li>
                     <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                    <span>Access All text Lessons</span>
+                    <span>300 API requests per minute</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Premium endpoints</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Priority Email Support</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>WebSocket</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Cancel anytime</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                   <li>
                     <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                    <span>Access All text Lessons</span>
+                    <span>Custom on-demand endpoint</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                   <li>
                     <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                    <span>Access All text Lessons</span>
-                    <i class="fa-solid fa-circle-info help"></i>
-                  </li>
-                  <li>
-                    <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                    <span>Access All text Lessons</span>
+                    <span>WebSocket</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                 </ul>
@@ -445,27 +475,42 @@ export default {
                   </li>
                   <li>
                     <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                    <span>Access All text Lessons</span>
+                    <span>100% Market Coverage</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                   <li>
                     <i class="fa-solid fa-check fa-fw yes text-success"></i>
-                    <span>Access All text Lessons</span>
+                    <span>750 API requests per minute</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                   <li>
-                    <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Premium endpoints</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                   <li>
-                    <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Chat and Email Priority Support</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                   <li>
-                    <i class="fa-solid fa-xmark fa-fw no text-danger"></i>
-                    <span>Access All text Lessons</span>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Bulk Download Endpoints</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Custom on-demand endpoint</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>Cancel anytime</span>
+                    <i class="fa-solid fa-circle-info help"></i>
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check fa-fw yes text-success"></i>
+                    <span>WebSocket</span>
                     <i class="fa-solid fa-circle-info help"></i>
                   </li>
                 </ul>
