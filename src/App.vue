@@ -57,7 +57,7 @@
             </router-link>
           </li>
 
-          <li class="list">
+          <li class="list" id="logout">
             <router-link to="/logout" class="button">
               <b></b>
               <b></b>
@@ -65,7 +65,7 @@
                 <span v-if="isLoggedIn" class="icon">
                   <ion-icon name="log-out-outline"></ion-icon>
                 </span>
-                <span v-if="isLoggedIn" class="title">Log out</span>
+                <span v-if="isLoggedIn" class="title">Logout</span>
               </a>
             </router-link>
           </li>
@@ -199,6 +199,35 @@ nav a.router-link-exact-active {
   border-bottom-left-radius: 20px
 }
 
+.aside ul #logout {
+  position: fixed;
+  bottom: 0;
+  list-style: none;
+  width: 100%;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.aside #logout a .title {
+  opacity: 0;
+}
+
+.aside.aside.active #logout a .title {
+  opacity: 1;
+}
+
+.aside ul #logout:hover {
+  font-size: 25px;
+  font-weight: bolder;
+  box-shadow: none;
+}
+
+.aside ul #logout:hover .title,
+.aside ul #logout:hover .icon {
+  color: #ff4d89;
+}
+
 .aside ul li .router-link-exact-active {
   background: #fff;
   width: 100%;
@@ -289,6 +318,7 @@ nav a.router-link-exact-active {
   letter-spacing: 3PX;
 }
 
+
 .header {
   position: sticky;
 }
@@ -338,5 +368,27 @@ nav a.router-link-exact-active {
 h1 {
   color: #ff4d89;
   text-decoration: underline;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(500px);
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(500px);
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 </style>

@@ -1,7 +1,16 @@
+<script setup>
+import moment from "moment";
+
+let props = defineProps({
+  date: String,
+});
+</script>
+
 <script>
 import axios from 'axios'
 import getSymbolFromCurrency from 'currency-symbol-map'
 import currencyToSymbolMap from 'currency-symbol-map/map'
+
 
 export default {
 
@@ -18,9 +27,11 @@ export default {
       endUsds: [],
       tickerInfos: [],
       USDS: [],
-      symbols: [currencyToSymbolMap],
       searchTerm: "",
       lowerSearchTerm: "",
+      date: "",
+      day: "",
+      year: ""
     }
 
   },
@@ -28,6 +39,7 @@ export default {
     this.getCurrenciesInfos(), getSymbolFromCurrency()
   },
   methods: {
+
     async getCurrenciesInfos() {
       await axios.get(`https://financialmodelingprep.com/api/v3/fx?apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
         this.CurrenciesInfo = res.data
@@ -55,8 +67,8 @@ export default {
           return itemData;
         });
         this.USDS = this.startUsds.concat(this.tickerInfos)
-        console.log("tickerInfos", USDS);
-        console.log(symbols)
+        console.log("tickerInfos", this.USDS);
+        console.log(currencyToSymbolMap)
       }).catch(err => console.log(err));
     },
     filterCurrencies: function () {
@@ -69,13 +81,15 @@ export default {
   }
 }
 </script>
+
 <template>
   <div class="container">
     <div class="navigation">
       <Sidebar />
     </div>
 
-    <h1 class="p-relative mt-5 mb-5"> LIVE US Dollar Exchange Rates (FX):</h1>
+    <h1 class="currencies-title p-relative mt-5 mb-5"> LIVE US Dollar Exchange Rates (FX):</h1>
+    <div class="date"> {{ moment().format('MMMM Do YYYY, h:mm:ss a') }}</div>
     <div class="search-currencies">
       <input placeholder="Search currency..." v-model="searchTerm" type="text" class="cur-input" maxlength="3">
     </div>
@@ -85,7 +99,7 @@ export default {
         <div class="card card-currencies" v-for="USD in filterCurrencies()" v-bind:key="USD.id">
           <div class="card-header-currencies">
             <h1 class="ticker">{{ (USD.ticker) }}</h1>
-            <div class="symbols">{{ symbols[0][`${USD.ticker.substring(4, 7)}`] }}</div>
+            <div class="symbols">{{ currencyToSymbolMap[`${USD.ticker.substring(4, 7)}`] }}</div>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><b>PRICE : </b> {{ parseFloat(USD.ask).toFixed(4) }}
@@ -105,6 +119,21 @@ export default {
 .col {
   display: contents;
   background: #0791e6;
+}
+
+.currencies-title {
+  color: #ff4d89;
+  text-decoration: underline;
+  animation: fadeInRight 2s ease-in-out;
+}
+
+.date {
+  color: rgb(116, 221, 17);
+  margin-top: -20px;
+  margin-left: 50px;
+  margin-bottom: 30px;
+  font-size: 25px;
+  animation: fadeInRight 2s ease-in-out;
 }
 
 .cur-input {
@@ -166,8 +195,8 @@ export default {
   vertical-align: middle;
   margin-top: 3px;
   margin-left: auto;
-  /* margin-right: 5px; */
   font-size: 24px;
+  animation: fadeInRight 2.5s ease-in-out;
 }
 
 .card-currencies {

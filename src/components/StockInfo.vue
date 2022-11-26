@@ -13,7 +13,7 @@ export default {
     setTimeout(this.getIncome, 1000);
 
     return {
-      stock: 'AAPL',
+      stock: '',
       beta: "",
       infoCompany: "",
       ceo: "",
@@ -267,211 +267,213 @@ export default {
       </form>
 
       <!-- Basic Information -->
-      <div class="row pt-5 pb-5">
-        <div class="col-md-3">
-          <div class="card card-stats card-background">
-            <div class="card-header card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">content_copy</i>
+      <div class="div" v-if="price !== ''">
+        <div class="row pt-5 pb-5">
+          <div class="col-md-3">
+            <div class="card card-stats card-background">
+              <div class="card-header card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">content_copy</i>
+                </div>
+                <p class="card-category">Beta</p>
+                <h3 class="card-title">{{ this.beta }}</h3>
               </div>
-              <p class="card-category">Beta</p>
-              <h3 class="card-title">{{ this.beta }}</h3>
             </div>
           </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card card-stats card-background">
-            <div class="card-header card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">store</i>
+          <div class="col-md-3">
+            <div class="card card-stats card-background">
+              <div class="card-header card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">store</i>
+                </div>
+                <p class="card-category">CEO</p>
+                <h3 class="card-title">{{ this.ceo }}</h3>
               </div>
-              <p class="card-category">CEO</p>
-              <h3 class="card-title">{{ this.ceo }}</h3>
             </div>
           </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card card-stats card-background">
-            <div class="card-header card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">info</i>
+          <div class="col-md-3">
+            <div class="card card-stats card-background">
+              <div class="card-header card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">info</i>
+                </div>
+                <p class="card-category">Comp. NAme</p>
+                <h3 class="card-title">{{ this.companyName }}</h3>
               </div>
-              <p class="card-category">Comp. NAme</p>
-              <h3 class="card-title">{{ this.companyName }}</h3>
             </div>
           </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card card-stats card-background">
-            <div class="card-header card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">storage</i>
-              </div>
-              <p class="card-category">Sector</p>
-              <h3 class="card-title">{{ this.sector }}</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row pt-5 pb-5">
-        <div class="col-md-4">
-          <div class="card card-profile border-0">
-            <div class="card-avatar">
-              <img class="img" :src="image" alt="">
-            </div>
-            <div class="card border-0">
-              <h4>{{ this.companyName }}</h4>
-              <p class="scrollable">{{ this.description }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-8">
-          <div class="card mb-3">
-            <div class="card card-body p-3">
-              <div>
-                <div id="candleStick" height="400px"></div>
+          <div class="col-md-3">
+            <div class="card card-stats card-background">
+              <div class="card-header card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">storage</i>
+                </div>
+                <p class="card-category">Sector</p>
+                <h3 class="card-title">{{ this.sector }}</h3>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <h1 class="p-relative pt-5 mt-5 mb-5 align-center">Balance Sheet :</h1>
-      <div class="card card-body">
-        <div class="row">
-          <div class="col-md-6">
-            <p class="pie-title">ASSETS</p>
-            <div id="Assets" height="400px"></div>
+        <div class="row pt-5 pb-5">
+          <div class="col-md-4">
+            <div class="card card-profile border-0">
+              <div class="card-avatar">
+                <img class="img" :src="image" alt="">
+              </div>
+              <div class="card border-0">
+                <h4>{{ this.companyName }}</h4>
+                <p class="scrollable">{{ this.description }}</p>
+              </div>
+            </div>
           </div>
-          <div class="col-md-6">
-            <p class="pie-title">LIABILITIES + EQUITY</p>
-            <div id="Liabilities" height="400px"></div>
+          <div class="col-md-8">
+            <div class="card mb-3">
+              <div class="card card-body p-3">
+                <div>
+                  <div id="candleStick" height="400px"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="row mt-5">
-          <p class="pie-title">BALANCE</p>
-          <div class="balance">
-            <div id="Balance"></div>
+
+        <h1 class="p-relative pt-5 mt-5 mb-5 align-center">Balance Sheet :</h1>
+        <div class="card card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <p class="pie-title">ASSETS</p>
+              <div id="Assets" height="400px"></div>
+            </div>
+            <div class="col-md-6">
+              <p class="pie-title">LIABILITIES + EQUITY</p>
+              <div id="Liabilities" height="400px"></div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <p class="pie-title">BALANCE</p>
+            <div class="balance">
+              <div id="Balance"></div>
+            </div>
           </div>
         </div>
-      </div>
-      <h1 class="p-relative pt-5 mt-5 mb-5 align-center">Income Statement :</h1>
-      <div class="card card-body table-responsive">
-        <div class="row">
-          <table class="table table-hover">
-            <thead class="headingcostumable">
-              <th>In Millions</th>
-              <th>{{ ISdate[0] }}</th>
-              <th>{{ ISdate[1] }}</th>
-              <th>{{ ISdate[2] }}</th>
-            </thead>
+        <h1 class="p-relative pt-5 mt-5 mb-5 align-center">Income Statement :</h1>
+        <div class="card card-body table-responsive">
+          <div class="row">
+            <table class="table table-hover">
+              <thead class="headingcostumable">
+                <th>In Millions</th>
+                <th>{{ ISdate[0] }}</th>
+                <th>{{ ISdate[1] }}</th>
+                <th>{{ ISdate[2] }}</th>
+              </thead>
 
-            <tbody>
-              <tr>
-                <td>Revenue</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(revenue[0]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(revenue[1]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(revenue[2]) }}</td>
-              </tr>
-              <tr>
-                <td>Cost of Revenue </td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(COGS[0]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(COGS[1]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(COGS[2]) }}</td>
-              </tr>
-              <tr>
-                <td>GrossProfit</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(GrossProfit[0]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(GrossProfit[1]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(GrossProfit[2]) }}</td>
-              </tr>
-              <tr>
-                <td>Operating Income </td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(Opinc[0]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(Opinc[1]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(Opinc[2]) }}</td>
-              </tr>
-              <tr>
-                <td>Operating Expenses </td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(Opexp[0]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(Opexp[1]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(Opexp[2]) }}</td>
-              </tr>
-              <tr>
-                <td>Cost and Expenses </td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(CostExp[0]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(CostExp[1]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(CostExp[2]) }}</td>
-              </tr>
-              <tr>
-                <td>Interest Income</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(IntInc[0]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(IntInc[1]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(IntInc[2]) }}</td>
-              </tr>
-              <tr>
-                <td>Interest Expense </td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(IntExp[0]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(IntExp[1]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(IntExp[2]) }}</td>
-              </tr>
-              <tr>
-                <td>Depreciation and Amortization</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(depr[0]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(depr[1]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(depr[2]) }}</td>
-              </tr>
-              <tr>
-                <td>totalOtherIncomeExpensesNet</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(OtherIncExp[0]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(OtherIncExp[1]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(OtherIncExp[2]) }}</td>
-              </tr>
-              <tr>
-                <td>Income Tax Expense </td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(incTaxExp[0]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(incTaxExp[1]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(incTaxExp[2]) }}</td>
-              </tr>
-              <tr>
-                <td>Net Income </td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(Netinc[0]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(Netinc[1]) }}</td>
-                <td>$ {{ Intl.NumberFormat('fr-FR').format(Netinc[2]) }}</td>
-              </tr>
-            </tbody>
-          </table>
+              <tbody>
+                <tr>
+                  <td>Revenue</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(revenue[0]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(revenue[1]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(revenue[2]) }}</td>
+                </tr>
+                <tr>
+                  <td>Cost of Revenue </td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(COGS[0]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(COGS[1]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(COGS[2]) }}</td>
+                </tr>
+                <tr>
+                  <td>GrossProfit</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(GrossProfit[0]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(GrossProfit[1]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(GrossProfit[2]) }}</td>
+                </tr>
+                <tr>
+                  <td>Operating Income </td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(Opinc[0]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(Opinc[1]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(Opinc[2]) }}</td>
+                </tr>
+                <tr>
+                  <td>Operating Expenses </td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(Opexp[0]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(Opexp[1]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(Opexp[2]) }}</td>
+                </tr>
+                <tr>
+                  <td>Cost and Expenses </td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(CostExp[0]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(CostExp[1]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(CostExp[2]) }}</td>
+                </tr>
+                <tr>
+                  <td>Interest Income</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(IntInc[0]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(IntInc[1]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(IntInc[2]) }}</td>
+                </tr>
+                <tr>
+                  <td>Interest Expense </td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(IntExp[0]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(IntExp[1]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(IntExp[2]) }}</td>
+                </tr>
+                <tr>
+                  <td>Depreciation and Amortization</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(depr[0]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(depr[1]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(depr[2]) }}</td>
+                </tr>
+                <tr>
+                  <td>totalOtherIncomeExpensesNet</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(OtherIncExp[0]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(OtherIncExp[1]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(OtherIncExp[2]) }}</td>
+                </tr>
+                <tr>
+                  <td>Income Tax Expense </td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(incTaxExp[0]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(incTaxExp[1]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(incTaxExp[2]) }}</td>
+                </tr>
+                <tr>
+                  <td>Net Income </td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(Netinc[0]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(Netinc[1]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(Netinc[2]) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      <h1 class="p-relative pt-5">Ratios :</h1>
-      <div class=" card card-body">
-        <div class="row bg-info mt-5 mr-1 text-dark rounded-4">
-          <div class="row mb-5">
-            <div class="col-md-12">
-              <div class="md-list mt-5">
-                <b-list-group horizontal class="col-md-3 mr-4">
-                  <i class="material-icons">query_stats</i>
-                  <span class="left">Price <b>{{ this.price }}</b></span>
-                  <span class="right">P/B <b>{{ this.priceBookValueRatio }}</b></span>
-                </b-list-group>
+        <h1 class="p-relative pt-5">Ratios :</h1>
+        <div class=" card card-body">
+          <div class="row bg-info mr-1 text-dark rounded-4">
+            <div class="row mb-5">
+              <div class="col-md-12">
+                <div class="md-list mt-5">
+                  <b-list-group horizontal class="col-md-3 mr-4">
+                    <i class="material-icons">query_stats</i>
+                    <span class="left">Price <b>{{ this.price }}</b></span>
+                    <span class="right">P/B <b>{{ this.priceBookValueRatio }}</b></span>
+                  </b-list-group>
 
-                <b-list-group horizontal class="col-md-3 mr-4">
-                  <i class="material-icons">attach_money</i>
-                  <span class="left">ROA <b>{{ this.ROA }}%</b></span>
-                  <span class="right">P/S <b>{{ this.priceToSales }}</b></span>
-                </b-list-group>
+                  <b-list-group horizontal class="col-md-3 mr-4">
+                    <i class="material-icons">attach_money</i>
+                    <span class="left">ROA <b>{{ this.ROA }}%</b></span>
+                    <span class="right">P/S <b>{{ this.priceToSales }}</b></span>
+                  </b-list-group>
 
-                <b-list-group horizontal class="col-md-3 mr-4">
-                  <i class="material-icons">attach_money</i>
-                  <span class="left">ROE <b>{{ this.ROE }}%</b></span>
-                  <span class="right">P/E <b>{{ this.priceEarningsRatio }}</b></span>
-                </b-list-group>
+                  <b-list-group horizontal class="col-md-3 mr-4">
+                    <i class="material-icons">attach_money</i>
+                    <span class="left">ROE <b>{{ this.ROE }}%</b></span>
+                    <span class="right">P/E <b>{{ this.priceEarningsRatio }}</b></span>
+                  </b-list-group>
 
-                <b-list-group horizontal class="col-md-3 mr-4">
-                  <i class="material-icons">equalizer</i>
-                  <span class="">Gross Profit Mar <b>{{ this.grossProfitMargin }}%</b></span>
-                </b-list-group>
+                  <b-list-group horizontal class="col-md-3 mr-4">
+                    <i class="material-icons">equalizer</i>
+                    <span class="">Gross Profit Mar <b>{{ this.grossProfitMargin }}%</b></span>
+                  </b-list-group>
+                </div>
               </div>
             </div>
           </div>

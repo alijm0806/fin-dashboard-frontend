@@ -7,6 +7,13 @@ export default {
     msg: String
   },
   data: function () {
+    setTimeout(this.getAppleInfos, 1000);
+    setTimeout(this.getGoogleInfos, 1000);
+    setTimeout(this.getMetaInfos, 1000);
+    setTimeout(this.getAmazonInfos, 1000);
+    setTimeout(this.getTeslaInfos, 1000);
+    setTimeout(this.getMicrosoftInfos, 1000);
+    setTimeout(this.getNetflixInfos, 1000);
 
     return {
       isLoggedIn: !!localStorage.jwt,
@@ -66,7 +73,7 @@ export default {
     }
   },
   mounted: function () {
-    this.getAppleInfos(), this.getAmazonInfos(), this.getGoogleInfos(), this.getMetaInfos(), this.getTeslaInfos(), this.getMicrosoftInfos(), this.getNetflixInfos()
+    this.getAppleInfos(), this.getGoogleInfos(), this.getMetaInfos(), this.getAmazonInfos(), this.getTeslaInfos(), this.getMicrosoftInfos(), this.getNetflixInfos()
   },
   methods: {
     async getAppleInfos() {
@@ -83,7 +90,7 @@ export default {
       console.log(this.AAPLprice)
     },
     async getGoogleInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/GOOG?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/GOOG?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
 
         this.GOOGcompanyInfo = res.data
         this.GOOGcompanyName = this.GOOGcompanyInfo.profile.companyName
@@ -96,7 +103,7 @@ export default {
       console.log(this.GOOGprice)
     },
     async getMetaInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/META?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/META?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
 
         this.METAcompanyInfo = res.data
         this.METAcompanyName = this.METAcompanyInfo.profile.companyName
@@ -109,7 +116,7 @@ export default {
       console.log(this.METAprice)
     },
     async getAmazonInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AMZN?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/AMZN?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
 
         this.AMZNcompanyInfo = res.data
         this.AMZNcompanyName = this.AMZNcompanyInfo.profile.companyName
@@ -122,7 +129,7 @@ export default {
       console.log(this.METAprice)
     },
     async getTeslaInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/TSLA?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/TSLA?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
 
         this.TSLAcompanyInfo = res.data
         this.TSLAcompanyName = this.TSLAcompanyInfo.profile.companyName
@@ -135,7 +142,7 @@ export default {
       console.log(this.METAprice)
     },
     async getNetflixInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/NFLX?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/NFLX?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
 
         this.NFLXcompanyInfo = res.data
         this.NFLXcompanyName = this.NFLXcompanyInfo.profile.companyName
@@ -148,7 +155,7 @@ export default {
       console.log(this.METAprice)
     },
     async getMicrosoftInfos() {
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/MSFT?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/MSFT?apikey=${process.env.VUE_APP_API_KEY1}`).then(res => {
 
         this.MSFTcompanyInfo = res.data
         this.MSFTcompanyName = this.MSFTcompanyInfo.profile.companyName
@@ -169,7 +176,7 @@ export default {
       <Sidebar />
 
     </div>
-    <h1 class="p-relative mt-5 mb-5">Most Popular Stocks</h1>
+    <h1 class=" landing-title p-relative mt-5 mb-5">Most Popular Stocks :</h1>
     <div class="Table">
       <table class="table">
         <thead>
@@ -190,14 +197,14 @@ export default {
             <td>{{ parseFloat(this.AAPLprice).toFixed(2) }}
             </td>
             <td :class="`${this.AAPLchangeValue > 0 ? 'positive' : 'negative'}`">{{
-            parseFloat(this.AAPLchangeValue).toFixed(2)
+                parseFloat(this.AAPLchangeValue).toFixed(2)
             }} <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
               </span>
             </td>
             <td :class="`${this.AAPLchangePercentage > 0 ? 'positive' : 'negative'}`">{{
-            parseFloat(this.AAPLchangePercentage).toFixed(2)
+                parseFloat(this.AAPLchangePercentage).toFixed(2)
             }} % <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
@@ -211,14 +218,14 @@ export default {
             <td>{{ parseFloat(this.MSFTprice).toFixed(2) }}
             </td>
             <td :class="`${this.MSFTchangeValue > 0 ? 'positive' : 'negative'}`">{{
-            parseFloat(this.MSFTchangeValue).toFixed(2)
+                parseFloat(this.MSFTchangeValue).toFixed(2)
             }} <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
               </span>
             </td>
             <td :class="`${this.MSFTchangePercentage > 0 ? 'positive' : 'negative'}`">{{
-            parseFloat(this.MSFTchangePercentage).toFixed(2)
+                parseFloat(this.MSFTchangePercentage).toFixed(2)
             }} % <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
@@ -232,14 +239,14 @@ export default {
             <td>{{ parseFloat(this.NFLXprice).toFixed(2) }}
             </td>
             <td :class="`${this.NFLXchangeValue > 0 ? 'positive' : 'negative'}`">{{
-            parseFloat(this.NFLXchangeValue).toFixed(2)
+                parseFloat(this.NFLXchangeValue).toFixed(2)
             }} <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
               </span>
             </td>
             <td :class="`${this.NFLXchangePercentage > 0 ? 'positive' : 'negative'}`">{{
-            parseFloat(this.NFLXchangePercentage).toFixed(2)
+                parseFloat(this.NFLXchangePercentage).toFixed(2)
             }} % <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
@@ -253,14 +260,14 @@ export default {
             <td>{{ parseFloat(this.TSLAprice).toFixed(2) }}
             </td>
             <td :class="`${this.TSLAchangeValue > 0 ? 'positive' : 'negative'}`">{{
-            parseFloat(this.TSLAchangeValue).toFixed(2)
+                parseFloat(this.TSLAchangeValue).toFixed(2)
             }} <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
               </span>
             </td>
             <td :class="`${this.TSLAchangePercentage > 0 ? 'positive' : 'negative'}`">{{
-            parseFloat(this.TSLAchangePercentage).toFixed(2)
+                parseFloat(this.TSLAchangePercentage).toFixed(2)
             }} % <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
@@ -274,14 +281,14 @@ export default {
             <td>{{ parseFloat(this.GOOGprice).toFixed(2) }}
             </td>
             <td :class="`${this.GOOGchangeValue > 0 ? 'positive' : 'negative'}`">{{
-            parseFloat(this.GOOGchangeValue).toFixed(2)
+                parseFloat(this.GOOGchangeValue).toFixed(2)
             }} <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
               </span>
             </td>
             <td :class="`${this.GOOGchangePercentage > 0 ? 'positive' : 'negative'}`">{{
-            parseFloat(this.GOOGchangePercentage).toFixed(2)
+                parseFloat(this.GOOGchangePercentage).toFixed(2)
             }} % <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
@@ -293,17 +300,17 @@ export default {
             <td>{{ this.METAsymbol }}</td>
             <td>{{ this.METAcompanyName }}</td>
             <td>{{
-            parseFloat(this.METAprice).toFixed(2)
+                parseFloat(this.METAprice).toFixed(2)
             }}</td>
             <td :class="`${this.METAchangeValue > 0 ? 'positive' : 'negative'}`">{{
-            parseFloat(this.METAchangeValue).toFixed(2)
+                parseFloat(this.METAchangeValue).toFixed(2)
             }} <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
               </span>
             </td>
             <td :class="`${this.METAchangePercentage > 0 ? 'positive' : 'negative'}`">{{
-            parseFloat(this.METAchangePercentage).toFixed(2)
+                parseFloat(this.METAchangePercentage).toFixed(2)
             }} % <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
@@ -317,14 +324,14 @@ export default {
             <td>{{ parseFloat(this.AMZNprice).toFixed(2) }}
             </td>
             <td :class="`${this.AMZNchangeValue > 0 ? 'positive' : 'negative'}`">{{
-            parseFloat(this.AMZNchangeValue).toFixed(2)
+                parseFloat(this.AMZNchangeValue).toFixed(2)
             }} <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
               </span>
             </td>
             <td :class="`${this.AMZNchangePercentage > 0 ? 'positive' : 'negative'}`">{{
-            parseFloat(this.AMZNchangePercentage).toFixed(2)
+                parseFloat(this.AMZNchangePercentage).toFixed(2)
             }} % <span>
                 <icon class="material-icons">arrow_drop_up</icon>
                 <i class="material-icons">arrow_drop_down</i>
@@ -335,8 +342,8 @@ export default {
       </table>
     </div>
     <div v-if="!isLoggedIn">
-      <h1 class="p-relative mt-5">Plans</h1>
-      <div class=" card card-body">
+      <h1 class="plans-title p-relative mt-5">Plans</h1>
+      <div class="card card-body plans">
         <div class="row mt-5">
           <div class="col-md-4 bg-light">
             <div class="plans-page d-grid m-20 gap-20">
@@ -523,10 +530,19 @@ export default {
         </div>
       </div>
     </div>
+    <br>
+    <br>
+    <br>
   </div>
 </template>
 
 <style>
+.landing-title {
+  color: #ff4d89;
+  text-decoration: underline;
+  animation: fadeInRight 3s ease-in-out;
+}
+
 .logo {
   width: 3rem;
   height: 3rem;
@@ -536,6 +552,7 @@ export default {
   background: rgb(245, 247, 245, 0.8);
   border: black solid;
   box-shadow: 5px 5px 5px 5px;
+  animation: fadeInUp 1s ease-in-out;
 }
 
 .table td {
@@ -594,6 +611,14 @@ export default {
 
 
 /* Start Plans Page */
+.plans {
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.plans-title {
+  animation: fadeInRight 2.5s ease-in-out;
+}
+
 .plans-page .plan .top {
   border: 3px solid white;
   outline: 3px solid transparent;
