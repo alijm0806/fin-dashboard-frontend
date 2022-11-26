@@ -191,11 +191,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #3B5999;
+  background: #0e3fa9;
   border-radius: 50%;
   margin: 0 7px;
   cursor: pointer;
 }
+
 
 .signup .contentBx .formBx .sci .twitter {
   list-style: none;
@@ -223,13 +224,26 @@ export default {
   cursor: pointer;
 }
 
-.signup .contentBx .formBx .sci li:hover {
-  background: #ff4584;
+.signup .contentBx .formBx .sci .facebook:hover,
+.signup .contentBx .formBx .sci .twitter:hover,
+.signup .contentBx .formBx .sci .instagram:hover {
+  background: #fff;
+}
+
+.signup .contentBx .formBx .sci .facebook:hover i {
+  color: #0e3fa9;
+}
+
+.signup .contentBx .formBx .sci .twitter:hover i {
+  color: #46C1F6;
+}
+
+.signup .contentBx .formBx .sci .instagram:hover i {
+  color: rgb(224, 49, 136);
 }
 
 .signup .contentBx .formBx .sci li i {
   transform: scale(2);
-  /* filter: invert(1) */
 }
 
 @media (max-width: 768px) {
