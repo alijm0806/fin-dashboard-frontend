@@ -49,7 +49,7 @@ export default {
       IntInc: [],
       IntExp: [],
       OtherIncExp: [],
-      depr: [],
+      R_D_expenses: [],
       incTaxExp: [],
       ISdate: [],
       IStemp: '',
@@ -62,11 +62,11 @@ export default {
   methods: {
     submit(stock) {
       this.stock = this.stock;
+      this.getIncome(stock);
       this.getInfo(stock);
       this.getCompanyValue(stock);
       this.getCandleStick(stock);
       this.getChartPie(stock);
-      this.getIncome(stock)
     },
 
     async getIncome(stock) {
@@ -77,32 +77,40 @@ export default {
         this.Netinc = [],
         this.ISdate = [],
         this.IStemp = '',
+        this.G_marg = [],
+        this.Ebitda_marg = [],
+        this.Profit_marg = [],
+        this.EBITDA = [],
+        this.Net_prof_marg = [],
 
-        await axios.get(`https://financialmodelingprep.com/api/v3/income-statement/${this.stock}?limit=120&apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
-          this.IStemp = res.data
+        await axios.get(`https://financialmodelingprep.com/api/v3/financials/income-statement/${this.stock}?limit=120&apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
+          this.IStemp = res.data.financials
           this.IStemp = this.IStemp.slice(0, 3)
           for (this.xi of this.IStemp) {
-            this.revenue.push(this.xi.revenue / 1000000)
-            this.COGS.push(this.xi["costOfRevenue"] / 1000000)
-            this.GrossProfit.push(this.xi["grossProfit"] / 1000000)
-            this.Opinc.push(this.xi["operatingIncome"] / 1000000)
-            this.Opexp.push(this.xi["operatingExpenses"] / 1000000)
-            this.CostExp.push(this.xi["costAndExpenses"] / 1000000)
-            this.IntInc.push(this.xi["interestIncome"] / 1000000)
-            this.IntExp.push(this.xi["interestExpense"] / 1000000)
-            this.depr.push(this.xi["depreciationAndAmortization"] / 1000000)
-            this.incTaxExp.push(this.xi["incomeTaxExpense"] / 1000000)
-            this.OtherIncExp.push(this.xi["totalOtherIncomeExpensesNet"] / 1000000)
-            this.Netinc.push(this.xi["netIncome"] / 1000000)
-            this.ISdate.push(this.xi["calendarYear"])
+            this.revenue.push(this.xi.Revenue / 1000000)
+            this.COGS.push(this.xi["Cost of Revenue"] / 1000000)
+            this.GrossProfit.push(this.xi["Gross Profit"] / 1000000)
+            this.Opinc.push(this.xi["Operating Income"] / 1000000)
+            this.Opexp.push(this.xi["Operating Expenses"] / 1000000)
+            this.R_D_expenses.push(this.xi["R&D Expenses"] / 1000000)
+            this.IntExp.push(this.xi["Interest Expense"] / 1000000)
+            this.incTaxExp.push(this.xi["Income Tax Expense"] / 1000000)
+            this.Netinc.push(this.xi["Net Income"] / 1000000)
+            this.ISdate.push(this.xi["date"])
+
+            this.G_marg.push(parseFloat(this.xi["Gross Margin"]).toFixed(4))
+            this.Ebitda_marg.push(parseFloat(this.xi["EBITDA Margin"]).toFixed(4))
+            this.Profit_marg.push(parseFloat(this.xi["Profit Margin"]).toFixed(4))
+            this.EBITDA.push(parseFloat(this.xi["EBITDA"]).toFixed(4))
+            this.Net_prof_marg.push(parseFloat(this.xi["Net Profit Margin"]).toFixed(4))
           }
 
-          console.log(this.COGS)
+          console.log(this.Revenue)
         }).catch(err => console.log(err))
     },
 
     async getChartPie(stock) {
-      await axios.get(`https://financialmodelingprep.com/api/v3/financials/balance-sheet-statement/${this.stock}?limit=120&apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/financials/balance-sheet-statement/${this.stock}?limit=120&apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
         this.cash = res.data.financials[0]['Cash and cash equivalents']
         this.receivables = res.data.financials[0]['Receivables']
         this.inventories = res.data.financials[0]['Inventories']
@@ -160,7 +168,7 @@ export default {
     },
 
     async getCandleStick(stock) {
-      await axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.stock}?timeseries=400&apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.stock}?timeseries=400&apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
         this.open = []
         this.close = []
         this.high = []
@@ -220,7 +228,7 @@ export default {
     },
 
     async getCompanyValue(stock) {
-      await axios.get(`https://financialmodelingprep.com/api/v3/financial-ratios/${this.stock}?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/financial-ratios/${this.stock}?apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
         console.log(this.res)
         this.ROA = parseFloat(res.data.ratios[0].profitabilityIndicatorRatios.returnOnAssets * 100).toFixed(2)
         this.ROE = parseFloat(res.data.ratios[0].profitabilityIndicatorRatios.returnOnEquity * 100).toFixed(2)
@@ -233,7 +241,7 @@ export default {
     async getInfo(stock) {
       // const api_key = process.env.API_KEY;
       // console.log(api_key);
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/${this.stock}?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/${this.stock}?apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
         console.log(this.res)
         this.infoCompany = res.data.profile
         this.beta = parseFloat(this.infoCompany.beta).toFixed(2)
@@ -297,7 +305,7 @@ export default {
                 <div class="card-icon">
                   <i class="material-icons">info</i>
                 </div>
-                <p class="card-category">Comp. NAme</p>
+                <p class="card-category">Company Name</p>
                 <h3 class="card-title">{{ this.companyName }}</h3>
               </div>
             </div>
@@ -363,9 +371,9 @@ export default {
             <table class="table table-hover">
               <thead class="headingcostumable">
                 <th>In Millions</th>
-                <th>{{ ISdate[0] }}</th>
-                <th>{{ ISdate[1] }}</th>
-                <th>{{ ISdate[2] }}</th>
+                <th>{{ ISdate[0].slice(0, 4) }}</th>
+                <th>{{ ISdate[1].slice(0, 4) }}</th>
+                <th>{{ ISdate[2].slice(0, 4) }}</th>
               </thead>
 
               <tbody>
@@ -400,34 +408,16 @@ export default {
                   <td>$ {{ Intl.NumberFormat('fr-FR').format(Opexp[2]) }}</td>
                 </tr>
                 <tr>
-                  <td>Cost and Expenses </td>
-                  <td>$ {{ Intl.NumberFormat('fr-FR').format(CostExp[0]) }}</td>
-                  <td>$ {{ Intl.NumberFormat('fr-FR').format(CostExp[1]) }}</td>
-                  <td>$ {{ Intl.NumberFormat('fr-FR').format(CostExp[2]) }}</td>
-                </tr>
-                <tr>
-                  <td>Interest Income</td>
-                  <td>$ {{ Intl.NumberFormat('fr-FR').format(IntInc[0]) }}</td>
-                  <td>$ {{ Intl.NumberFormat('fr-FR').format(IntInc[1]) }}</td>
-                  <td>$ {{ Intl.NumberFormat('fr-FR').format(IntInc[2]) }}</td>
-                </tr>
-                <tr>
                   <td>Interest Expense </td>
                   <td>$ {{ Intl.NumberFormat('fr-FR').format(IntExp[0]) }}</td>
                   <td>$ {{ Intl.NumberFormat('fr-FR').format(IntExp[1]) }}</td>
                   <td>$ {{ Intl.NumberFormat('fr-FR').format(IntExp[2]) }}</td>
                 </tr>
                 <tr>
-                  <td>Depreciation and Amortization</td>
-                  <td>$ {{ Intl.NumberFormat('fr-FR').format(depr[0]) }}</td>
-                  <td>$ {{ Intl.NumberFormat('fr-FR').format(depr[1]) }}</td>
-                  <td>$ {{ Intl.NumberFormat('fr-FR').format(depr[2]) }}</td>
-                </tr>
-                <tr>
-                  <td>totalOtherIncomeExpensesNet</td>
-                  <td>$ {{ Intl.NumberFormat('fr-FR').format(OtherIncExp[0]) }}</td>
-                  <td>$ {{ Intl.NumberFormat('fr-FR').format(OtherIncExp[1]) }}</td>
-                  <td>$ {{ Intl.NumberFormat('fr-FR').format(OtherIncExp[2]) }}</td>
+                  <td>Recherche and Development Expenses</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(R_D_expenses[0]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(R_D_expenses[1]) }}</td>
+                  <td>$ {{ Intl.NumberFormat('fr-FR').format(R_D_expenses[2]) }}</td>
                 </tr>
                 <tr>
                   <td>Income Tax Expense </td>
@@ -445,6 +435,61 @@ export default {
             </table>
           </div>
         </div>
+
+        <div class="row pt-5 pb-5">
+          <div class="col-md-3 width-25%">
+            <div class="card card-stats card-background">
+              <div class="card-header card-header-icon">
+                <p class="card-category">Gross Margin</p>
+                <h3 class="card-title">{{ this.G_marg[0] }}</h3>
+                <h3 class="card-title">{{ this.G_marg[1] }}</h3>
+                <h3 class="card-title">{{ this.G_marg[2] }}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 width-25%">
+            <div class="card card-stats card-background">
+              <div class="card-header card-header-icon">
+                <p class="card-category">EBITDA Margin</p>
+                <h3 class="card-title">{{ this.G_marg[0] }}</h3>
+                <h3 class="card-title">{{ this.G_marg[1] }}</h3>
+                <h3 class="card-title">{{ this.G_marg[2] }}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 width-25%">
+            <div class="card card-stats card-background">
+              <div class="card-header card-header-icon">
+                <p class="card-category">Profit Margin</p>
+                <h3 class="card-title">{{ this.ISdate[0].slice(0, 4) }} : {{ this.G_marg[0] }} %</h3>
+                <h3 class="card-title">{{ this.G_marg[1] }}</h3>
+                <h3 class="card-title">{{ this.G_marg[2] }}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 width-25%">
+            <div class="card card-stats card-background">
+              <div class="card-header card-header-icon">
+                <p class="card-category">Earn. Before T. Margin</p>
+                <h3 class="card-title">{{ this.G_marg[0] }}</h3>
+                <h3 class="card-title">{{ this.G_marg[1] }}</h3>
+                <h3 class="card-title">{{ this.G_marg[2] }}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 width-25%">
+            <div class="card card-stats card-background">
+              <div class="card-header card-header-icon">
+                <p class="card-category">Net Profit Margin</p>
+                <h3 class="card-title">{{ this.G_marg[0] }}</h3>
+                <h3 class="card-title">{{ this.G_marg[1] }}</h3>
+                <h3 class="card-title">{{ this.G_marg[2] }}</h3>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
         <h1 class="p-relative pt-5">Ratios :</h1>
         <div class=" card card-body">
           <div class="row bg-info mr-1 text-dark rounded-4">

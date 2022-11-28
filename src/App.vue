@@ -207,6 +207,7 @@ nav a.router-link-exact-active {
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   margin-bottom: 20px;
+  flex: 1 1 0;
 }
 
 .aside #logout a .title {
