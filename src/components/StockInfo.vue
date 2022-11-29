@@ -80,10 +80,9 @@ export default {
         this.G_marg = [],
         this.Ebitda_marg = [],
         this.Profit_marg = [],
-        this.EBITDA = [],
         this.Net_prof_marg = [],
 
-        await axios.get(`https://financialmodelingprep.com/api/v3/financials/income-statement/${this.stock}?limit=120&apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
+        await axios.get(`https://financialmodelingprep.com/api/v3/financials/income-statement/${this.stock}?limit=120&apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
           this.IStemp = res.data.financials
           this.IStemp = this.IStemp.slice(0, 3)
           for (this.xi of this.IStemp) {
@@ -98,11 +97,10 @@ export default {
             this.Netinc.push(this.xi["Net Income"] / 1000000)
             this.ISdate.push(this.xi["date"])
 
-            this.G_marg.push(parseFloat(this.xi["Gross Margin"]).toFixed(4))
-            this.Ebitda_marg.push(parseFloat(this.xi["EBITDA Margin"]).toFixed(4))
-            this.Profit_marg.push(parseFloat(this.xi["Profit Margin"]).toFixed(4))
-            this.EBITDA.push(parseFloat(this.xi["EBITDA"]).toFixed(4))
-            this.Net_prof_marg.push(parseFloat(this.xi["Net Profit Margin"]).toFixed(4))
+            this.G_marg.push(parseFloat(this.xi["Gross Margin"] * 100).toFixed(2))
+            this.Ebitda_marg.push(parseFloat(this.xi["EBITDA Margin"] * 100).toFixed(2))
+            this.Profit_marg.push(parseFloat(this.xi["Profit Margin"] * 100).toFixed(2))
+            this.Net_prof_marg.push(parseFloat(this.xi["Net Profit Margin"] * 100).toFixed(2))
           }
 
           console.log(this.Revenue)
@@ -110,7 +108,7 @@ export default {
     },
 
     async getChartPie(stock) {
-      await axios.get(`https://financialmodelingprep.com/api/v3/financials/balance-sheet-statement/${this.stock}?limit=120&apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/financials/balance-sheet-statement/${this.stock}?limit=120&apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
         this.cash = res.data.financials[0]['Cash and cash equivalents']
         this.receivables = res.data.financials[0]['Receivables']
         this.inventories = res.data.financials[0]['Inventories']
@@ -168,7 +166,7 @@ export default {
     },
 
     async getCandleStick(stock) {
-      await axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.stock}?timeseries=400&apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.stock}?timeseries=400&apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
         this.open = []
         this.close = []
         this.high = []
@@ -228,7 +226,7 @@ export default {
     },
 
     async getCompanyValue(stock) {
-      await axios.get(`https://financialmodelingprep.com/api/v3/financial-ratios/${this.stock}?apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/financial-ratios/${this.stock}?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
         console.log(this.res)
         this.ROA = parseFloat(res.data.ratios[0].profitabilityIndicatorRatios.returnOnAssets * 100).toFixed(2)
         this.ROE = parseFloat(res.data.ratios[0].profitabilityIndicatorRatios.returnOnEquity * 100).toFixed(2)
@@ -241,7 +239,7 @@ export default {
     async getInfo(stock) {
       // const api_key = process.env.API_KEY;
       // console.log(api_key);
-      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/${this.stock}?apikey=${process.env.VUE_APP_API_KEY3}`).then(res => {
+      await axios.get(`https://financialmodelingprep.com/api/v3/company/profile/${this.stock}?apikey=${process.env.VUE_APP_API_KEY2}`).then(res => {
         console.log(this.res)
         this.infoCompany = res.data.profile
         this.beta = parseFloat(this.infoCompany.beta).toFixed(2)
@@ -318,6 +316,39 @@ export default {
                 </div>
                 <p class="card-category">Sector</p>
                 <h3 class="card-title">{{ this.sector }}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class=" card card-body">
+          <div class="row bg-info mr-1 text-dark rounded-4">
+            <div class="row mb-5">
+              <div class="col-md-12">
+                <div class="md-list mt-5">
+                  <b-list-group horizontal class="col-md-3 mr-4">
+                    <i class="material-icons">query_stats</i>
+                    <span class="left">Price <b>{{ this.price }}</b></span>
+                    <span class="right">P/B <b>{{ this.priceBookValueRatio }}</b></span>
+                  </b-list-group>
+
+                  <b-list-group horizontal class="col-md-3 mr-4">
+                    <i class="material-icons">attach_money</i>
+                    <span class="left">ROA <b>{{ this.ROA }}%</b></span>
+                    <span class="right">P/S <b>{{ this.priceToSales }}</b></span>
+                  </b-list-group>
+
+                  <b-list-group horizontal class="col-md-3 mr-4">
+                    <i class="material-icons">attach_money</i>
+                    <span class="left">ROE <b>{{ this.ROE }}%</b></span>
+                    <span class="right">P/E <b>{{ this.priceEarningsRatio }}</b></span>
+                  </b-list-group>
+
+                  <b-list-group horizontal class="col-md-3 mr-4">
+                    <i class="material-icons">equalizer</i>
+                    <span class="">Gross Profit Mar <b>{{ this.grossProfitMargin }}%</b></span>
+                  </b-list-group>
+                </div>
               </div>
             </div>
           </div>
@@ -436,89 +467,49 @@ export default {
           </div>
         </div>
 
+        <h1 class="p-relative pt-5">Ratios :</h1>
         <div class="row pt-5 pb-5">
-          <div class="col-md-3 width-25%">
-            <div class="card card-stats card-background">
+          <div class="ratios">
+            <div class="card card-stats card-ratios">
               <div class="card-header card-header-icon">
                 <p class="card-category">Gross Margin</p>
-                <h3 class="card-title">{{ this.G_marg[0] }}</h3>
-                <h3 class="card-title">{{ this.G_marg[1] }}</h3>
-                <h3 class="card-title">{{ this.G_marg[2] }}</h3>
+                <h3 class="card-title"><span>{{ this.ISdate[0].slice(0, 4) }} :</span> {{ this.G_marg[0] }} %
+                </h3>
+                <h3 class="card-title"><span>{{ this.ISdate[1].slice(0, 4) }} :</span> {{ this.G_marg[1] }} %</h3>
+                <h3 class="card-title"><span>{{ this.ISdate[2].slice(0, 4) }} :</span> {{ this.G_marg[2] }} %</h3>
               </div>
             </div>
           </div>
-          <div class="col-md-3 width-25%">
-            <div class="card card-stats card-background">
+          <div class="ratios">
+            <div class="card card-stats card-ratios">
               <div class="card-header card-header-icon">
                 <p class="card-category">EBITDA Margin</p>
-                <h3 class="card-title">{{ this.G_marg[0] }}</h3>
-                <h3 class="card-title">{{ this.G_marg[1] }}</h3>
-                <h3 class="card-title">{{ this.G_marg[2] }}</h3>
+                <h3 class="card-title"><span>{{ this.ISdate[0].slice(0, 4) }} :</span> {{ this.Ebitda_marg[0] }} %</h3>
+                <h3 class="card-title"><span>{{ this.ISdate[1].slice(0, 4) }} :</span> {{ this.Ebitda_marg[1] }} %</h3>
+                <h3 class="card-title"><span>{{ this.ISdate[2].slice(0, 4) }} :</span> {{ this.Ebitda_marg[2] }} %</h3>
               </div>
             </div>
           </div>
-          <div class="col-md-3 width-25%">
-            <div class="card card-stats card-background">
+          <div class="ratios">
+            <div class="card card-stats card-ratios">
               <div class="card-header card-header-icon">
                 <p class="card-category">Profit Margin</p>
-                <h3 class="card-title">{{ this.ISdate[0].slice(0, 4) }} : {{ this.G_marg[0] }} %</h3>
-                <h3 class="card-title">{{ this.G_marg[1] }}</h3>
-                <h3 class="card-title">{{ this.G_marg[2] }}</h3>
+                <h3 class="card-title"><span>{{ this.ISdate[0].slice(0, 4) }} :</span> {{ this.Profit_marg[0] }} %</h3>
+                <h3 class="card-title"><span>{{ this.ISdate[1].slice(0, 4) }} :</span> {{ this.Profit_marg[1] }} %</h3>
+                <h3 class="card-title"><span>{{ this.ISdate[2].slice(0, 4) }} :</span> {{ this.Profit_marg[2] }} %</h3>
               </div>
             </div>
           </div>
-          <div class="col-md-3 width-25%">
-            <div class="card card-stats card-background">
-              <div class="card-header card-header-icon">
-                <p class="card-category">Earn. Before T. Margin</p>
-                <h3 class="card-title">{{ this.G_marg[0] }}</h3>
-                <h3 class="card-title">{{ this.G_marg[1] }}</h3>
-                <h3 class="card-title">{{ this.G_marg[2] }}</h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 width-25%">
-            <div class="card card-stats card-background">
+          <div class="ratios">
+            <div class="card card-stats card-ratios">
               <div class="card-header card-header-icon">
                 <p class="card-category">Net Profit Margin</p>
-                <h3 class="card-title">{{ this.G_marg[0] }}</h3>
-                <h3 class="card-title">{{ this.G_marg[1] }}</h3>
-                <h3 class="card-title">{{ this.G_marg[2] }}</h3>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <h1 class="p-relative pt-5">Ratios :</h1>
-        <div class=" card card-body">
-          <div class="row bg-info mr-1 text-dark rounded-4">
-            <div class="row mb-5">
-              <div class="col-md-12">
-                <div class="md-list mt-5">
-                  <b-list-group horizontal class="col-md-3 mr-4">
-                    <i class="material-icons">query_stats</i>
-                    <span class="left">Price <b>{{ this.price }}</b></span>
-                    <span class="right">P/B <b>{{ this.priceBookValueRatio }}</b></span>
-                  </b-list-group>
-
-                  <b-list-group horizontal class="col-md-3 mr-4">
-                    <i class="material-icons">attach_money</i>
-                    <span class="left">ROA <b>{{ this.ROA }}%</b></span>
-                    <span class="right">P/S <b>{{ this.priceToSales }}</b></span>
-                  </b-list-group>
-
-                  <b-list-group horizontal class="col-md-3 mr-4">
-                    <i class="material-icons">attach_money</i>
-                    <span class="left">ROE <b>{{ this.ROE }}%</b></span>
-                    <span class="right">P/E <b>{{ this.priceEarningsRatio }}</b></span>
-                  </b-list-group>
-
-                  <b-list-group horizontal class="col-md-3 mr-4">
-                    <i class="material-icons">equalizer</i>
-                    <span class="">Gross Profit Mar <b>{{ this.grossProfitMargin }}%</b></span>
-                  </b-list-group>
-                </div>
+                <h3 class="card-title"><span>{{ this.ISdate[0].slice(0, 4) }} :</span> {{ this.Net_prof_marg[0] }} %
+                </h3>
+                <h3 class="card-title"><span>{{ this.ISdate[1].slice(0, 4) }} :</span> {{ this.Net_prof_marg[1] }} %
+                </h3>
+                <h3 class="card-title"><span>{{ this.ISdate[2].slice(0, 4) }} :</span> {{ this.Net_prof_marg[2]
+                }} %</h3>
               </div>
             </div>
           </div>
@@ -586,7 +577,6 @@ a {
 .card-background {
   background-image: linear-gradient(to bottom right, #24D484, #116432);
   box-shadow: 5px 5px 5px 5px;
-
 }
 
 .card-background:hover {
@@ -596,7 +586,37 @@ a {
   top: -10px;
 }
 
-.card-background:hover h3 {
+.row .ratios {
+  width: 25%;
+}
+
+.card-ratios {
+  background-image: linear-gradient(to bottom right, #08e4f4, #e4f3f3);
+  box-shadow: 5px 5px 5px 5px;
+}
+
+.card-ratios .card-title {
+  color: magneta;
+}
+
+.card-ratios .card-title span {
+  color: black;
+}
+
+.card-ratios:hover {
+  background-image: linear-gradient(to bottom right, #08e4f4, #e4f3f3);
+  box-shadow: #1d10d5 5px 5px 5px 5px;
+  pointer-events: auto;
+  top: -10px;
+}
+
+.card-ratios p {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  font-size: x-large;
+  font-weight: 600;
   color: red;
 }
 
@@ -677,5 +697,9 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.ratios {
+  width: 20%;
 }
 </style>
