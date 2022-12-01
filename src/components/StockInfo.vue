@@ -667,20 +667,11 @@ a {
 
 
 .scrollable {
-  overflow-y: auto;
+  overflow: scroll;
   max-height: 300px;
   margin-left: 1rem;
   margin-right: 1rem;
   font-size: larger;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #4d5bf9;
-  border-radius: 7px;
 }
 
 #Balance {
